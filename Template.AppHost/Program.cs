@@ -13,7 +13,7 @@ var postgresDbNext = builder.ExecutionContext.IsRunMode ? serverPotgsres
 
 #region Login Solid
 builder.AddProject<Migration>("nutri-solid-migration")
-    .WithReference(postgresDbNext).WaitFor(postgresDbNext);
+    .WithReference(postgresDbNext);
 
 var api = builder.AddProject<Api>("nutri-solid")
         .WithReference(postgresDbNext);
