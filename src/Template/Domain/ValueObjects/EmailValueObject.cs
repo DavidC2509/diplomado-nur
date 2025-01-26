@@ -10,6 +10,11 @@ namespace Template.Domain.ValueObjects
         {
             Value = value;
         }
+        public EmailValueObject()
+        {
+            Value = string.Empty;
+        }
+
 
         public static EmailValueObject Create(string email)
         {

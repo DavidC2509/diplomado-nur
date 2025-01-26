@@ -21,7 +21,7 @@ namespace Template.Domain.ClientAggregate
             Name = string.Empty;
             _addresses = [];
             _medicalIllnesses = [];
-            Email = EmailValueObject.Create(string.Empty);
+            Email = new EmailValueObject();
         }
 
         internal Client(string name, string phone, string email) : this()
