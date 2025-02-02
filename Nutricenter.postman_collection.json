@@ -1,13 +1,59 @@
 {
 	"info": {
-		"_postman_id": "d7c22cc0-d3f3-466a-b8dc-e0b8fe21f240",
+		"_postman_id": "a5507e10-16b8-4d21-a997-e12f3ce4f70e",
 		"name": "Nutricenter",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37690628"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "ListClient",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const es_error =\r",
+							"    pm.collectionVariables.get(\"es_error\");\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Check if response is empty or has valid structure\", function () {\r",
+							"    var jsonArr = pm.response.json();\r",
+							"\r",
+							"    // Verificar que la respuesta sea un array\r",
+							"    pm.expect(jsonArr).to.be.an(\"array\");\r",
+							"\r",
+							"    if (jsonArr.length === 0) {\r",
+							"        console.log(\"El JSON está vacío.\");\r",
+							"    } else {\r",
+							"        console.log(\"El JSON tiene datos.\");\r",
+							"\r",
+							"        // Expresión regular para validar el formato GUID\r",
+							"        const guidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;\r",
+							"\r",
+							"        jsonArr.forEach(item => {\r",
+							"            // Verificar que cada objeto tenga las claves esperadas\r",
+							"            pm.expect(item).to.have.all.keys(\"id\", \"name\", \"phone\", \"email\", \"emailAddres\", \"addresses\");\r",
+							"\r",
+							"            // Validar el formato del ID (debe ser un GUID)\r",
+							"            pm.expect(item.id).to.match(guidRegex);\r",
+							"            \r",
+							"            // Validar que 'name' y 'phone' sean strings\r",
+							"            pm.expect(item.name).to.be.a(\"string\");\r",
+							"            pm.expect(item.phone).to.be.a(\"string\");\r",
+							"\r",
+							"            // Validar que 'addresses' sea un array\r",
+							"            pm.expect(item.addresses).to.be.an(\"array\");\r",
+							"        });\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -29,12 +75,38 @@
 		},
 		{
 			"name": "StoreClient",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const es_error =\r",
+							"    pm.collectionVariables.get(\"es_error\");\r",
+							"if (es_error == 0) {\r",
+							"    pm.test(\"Status code is 400\", function () {\r",
+							"        pm.response.to.have.status(400);\r",
+							"    });\r",
+							"    return;\r",
+							"}\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const responseBody = pm.response.text();\r",
+							"    pm.expect(responseBody).to.match(/^true$|^false$/);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"David\",\r\n  \"phone\": \"Chavez\",\r\n  \"email\": \"davidfernando.chavez777@gmail.com\"\r\n}",
+					"raw": "{\r\n  \"name\": \"David2\",\r\n  \"phone\": \"Chavez2\",\r\n  \"email\": \"davidfernando.chavez777@gmail.com\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -58,11 +130,59 @@
 		},
 		{
 			"name": "GetClient",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const es_error =\r",
+							"    pm.collectionVariables.get(\"es_error\");\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Validate response object and matching ID\", function () {\r",
+							"    var responseObj = pm.response.json();\r",
+							"\r",
+							"    // Obtener el ID de la URL\r",
+							"    var requestUrl = pm.request.url.toString();\r",
+							"    var urlParts = requestUrl.split(\"/\");\r",
+							"    var idFromUrl = urlParts[urlParts.length - 1]; // Última parte de la URL es el ID\r",
+							"\r",
+							"    // Expresión regular para validar formato GUID\r",
+							"    const guidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;\r",
+							"\r",
+							"    // Validar que la respuesta sea un objeto\r",
+							"    pm.expect(responseObj).to.be.an(\"object\");\r",
+							"\r",
+							"    // Verificar que tenga las claves esperadas\r",
+							"    pm.expect(responseObj).to.have.all.keys(\"id\", \"name\", \"phone\", \"email\", \"emailAddres\", \"addresses\");\r",
+							"\r",
+							"    // Validar el formato del ID\r",
+							"    pm.expect(responseObj.id).to.match(guidRegex);\r",
+							"\r",
+							"    // Validar que el ID en la respuesta sea el mismo que en la URL\r",
+							"    pm.expect(responseObj.id).to.eql(idFromUrl);\r",
+							"\r",
+							"    // Validar que 'name' y 'phone' sean strings\r",
+							"    pm.expect(responseObj.name).to.be.a(\"string\");\r",
+							"    pm.expect(responseObj.phone).to.be.a(\"string\");\r",
+							"\r",
+							"    // Validar que 'addresses' sea un array\r",
+							"    pm.expect(responseObj.addresses).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:7176/api/client/802492f1-f8e0-4128-95fd-b19790a18ab6",
+					"raw": "https://localhost:7176/api/client/6ae89a82-b384-4b4b-998c-984152b7d30c",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -71,7 +191,7 @@
 					"path": [
 						"api",
 						"client",
-						"802492f1-f8e0-4128-95fd-b19790a18ab6"
+						"6ae89a82-b384-4b4b-998c-984152b7d30c"
 					]
 				}
 			},
@@ -79,12 +199,38 @@
 		},
 		{
 			"name": "AddAddresClient",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const es_error =\r",
+							"    pm.collectionVariables.get(\"es_error\");\r",
+							"if (es_error == 0) {\r",
+							"    pm.test(\"Status code is 400\", function () {\r",
+							"        pm.response.to.have.status(400);\r",
+							"    });\r",
+							"    return;\r",
+							"}\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const responseBody = pm.response.text();\r",
+							"    pm.expect(responseBody).to.match(/^true$|^false$/);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"idClient\": \"802492f1-f8e0-4128-95fd-b19790a18ab6\",\r\n  \"street\": \"Calle 2\",\r\n  \"city\": \"Santa cruz\",\r\n  \"latituded\": 12331230,\r\n  \"longitud\": -3213120\r\n}",
+					"raw": "{\r\n  \"idClient\": \"6ae89a82-b384-4b4b-998c-984152b7d30c\",\r\n  \"street\": \"Calle 2\",\r\n  \"city\": \"Santa cruz\",\r\n  \"latituded\": 12331230,\r\n  \"longitud\": -3213120\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -109,12 +255,38 @@
 		},
 		{
 			"name": "AddMedicalIllneses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const es_error =\r",
+							"    pm.collectionVariables.get(\"es_error\");\r",
+							"if (es_error == 0) {\r",
+							"    pm.test(\"Status code is 400\", function () {\r",
+							"        pm.response.to.have.status(400);\r",
+							"    });\r",
+							"    return;\r",
+							"}\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const responseBody = pm.response.text();\r",
+							"    pm.expect(responseBody).to.match(/^true$|^false$/);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"idClient\": \"802492f1-f8e0-4128-95fd-b19790a18ab6\",\r\n  \"name\": \"Cancer\",\r\n  \"descripcion\": \"Cancer de mama\",\r\n  \"type\": \"Cancenigerico\"\r\n}",
+					"raw": "{\r\n  \"idClient\": \"6ae89a82-b384-4b4b-998c-984152b7d30c\",\r\n  \"name\": \"Cancer\",\r\n  \"descripcion\": \"Cancer de mama\",\r\n  \"type\": \"Cancenigerico\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -132,6 +304,132 @@
 						"api",
 						"client",
 						"medical-illneses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListMedical-Consultation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const es_error =\r",
+							"    pm.collectionVariables.get(\"es_error\");\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Check if response is empty or has valid structure\", function () {\r",
+							"    var jsonArr = pm.response.json();\r",
+							"\r",
+							"    // Verificar que la respuesta sea un array\r",
+							"    pm.expect(jsonArr).to.be.an(\"array\");\r",
+							"\r",
+							"    if (jsonArr.length === 0) {\r",
+							"        console.log(\"El JSON está vacío.\");\r",
+							"    } else {\r",
+							"        console.log(\"El JSON tiene datos.\");\r",
+							"\r",
+							"        // Expresión regular para validar formato GUID\r",
+							"        const guidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;\r",
+							"\r",
+							"        jsonArr.forEach(item => {\r",
+							"            // Verificar que cada objeto tenga las claves esperadas\r",
+							"            pm.expect(item).to.have.all.keys(\"id\", \"descripcion\", \"status\", \"idConsultExternal\", \"idClient\");\r",
+							"\r",
+							"            // Validar que el ID, idConsultExternal e idClient sean GUIDs\r",
+							"            pm.expect(item.id).to.match(guidRegex);\r",
+							"            pm.expect(item.idConsultExternal).to.match(guidRegex);\r",
+							"            pm.expect(item.idClient).to.match(guidRegex);\r",
+							"\r",
+							"            // Validar que 'descripcion' sea string\r",
+							"            pm.expect(item.descripcion).to.be.a(\"string\");\r",
+							"\r",
+							"            // Validar que 'status' sea booleano\r",
+							"            pm.expect(item.status).to.be.a(\"boolean\");\r",
+							"        });\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7176/api/medical-consultation/client/6ae89a82-b384-4b4b-998c-984152b7d30c",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7176",
+					"path": [
+						"api",
+						"medical-consultation",
+						"client",
+						"6ae89a82-b384-4b4b-998c-984152b7d30c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddMedicalConsultation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const es_error =\r",
+							"    pm.collectionVariables.get(\"es_error\");\r",
+							"if (es_error == 0) {\r",
+							"    pm.test(\"Status code is 400\", function () {\r",
+							"        pm.response.to.have.status(400);\r",
+							"    });\r",
+							"    return;\r",
+							"}\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const responseBody = pm.response.text();\r",
+							"    pm.expect(responseBody).to.match(/^true$|^false$/);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idClient\": \"6ae89a82-b384-4b4b-998c-984152b7d30c\",\r\n    \"name\": \"Cancer\",\r\n    \"status\": true,\r\n    \"idConsultExternal\": \"6ae89a82-b384-4b4b-912c-124152b7d30c\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7176/api/medical-consultation",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7176",
+					"path": [
+						"api",
+						"medical-consultation"
 					]
 				}
 			},

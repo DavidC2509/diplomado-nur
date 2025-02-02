@@ -1,22 +1,24 @@
 using Projects;
+using Template.AppHost.Extensions;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
 #region Postbres Db
 
-var serverPotgsres = builder.AddPostgres("nutri-solid-server").WithDataVolume().WithPgAdmin(c => c.WithHostPort(5050));
+var serverPotgsres = builder.AddPostgres("next-database-server",
+    password: builder.AddParameter("PostgresPassword", secret: true)).WithDataVolume().WithPgAdmin(c => c.WithHostPort(5050));
 
-var postgresDbNext = builder.ExecutionContext.IsRunMode ? serverPotgsres
-    .AddDatabase("nutri-solid-database") : builder.AddConnectionString("nutri-solid-database");
+var postgresDbNext = serverPotgsres
+    .AddDatabase("nutri-solid-database");
 
 #endregion
 
 #region Login Solid
 builder.AddProject<Migration>("nutri-solid-migration")
-    .WithReference(postgresDbNext);
+    .WithReference(postgresDbNext).WaitFor(postgresDbNext);
 
 var api = builder.AddProject<Api>("nutri-solid")
-        .WithReference(postgresDbNext);
+        .WithReference(postgresDbNext).WaitFor(postgresDbNext); ;
 
 #endregion
 

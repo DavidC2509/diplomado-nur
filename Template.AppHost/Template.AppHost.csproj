@@ -12,11 +12,12 @@
 	<ItemGroup>
 		<PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.0.1" />
 		<PackageReference Include="Aspire.Hosting.AppHost" Version="8.0.1" />
+		<PackageReference Include="AspNetCore.HealthChecks.Uris" Version="8.0.1" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\src\Template\Api\Api.csproj" />
-    <ProjectReference Include="..\src\Template\Migration\Migration.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\src\Template\Api\Api.csproj" />
+	  <ProjectReference Include="..\src\Template\Migration\Migration.csproj" />
+	</ItemGroup>
 
 </Project>
