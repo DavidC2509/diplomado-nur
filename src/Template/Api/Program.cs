@@ -24,6 +24,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApplication();
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "_myAllowSpecificOrigins",
+                      policy =>
+                      {
+                          policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                      });
+});
+
 builder.ConfigureSwagger();
 
 
@@ -43,14 +52,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("_myAllowSpecificOrigins");
 app.MapControllers();
 
-app.UseHttpsRedirection();
-
 app.UseRouting();
-
-app.UseAuthorization();
 
 
 //using (var scope = app.Services.CreateScope())
