@@ -4,7 +4,7 @@ using Template.Domain.RequestChangeAggregate;
 
 namespace Template.Services.Command.RequestChangeCommand
 {
-    internal class ModifiedRequestChangeCommandHandler : BaseCommandHandler<IRepository<RequestChangeHistory>, ModifiedRequestChangeCommand, bool>
+    public class ModifiedRequestChangeCommandHandler : BaseCommandHandler<IRepository<RequestChangeHistory>, ModifiedRequestChangeCommand, bool>
     {
 
         public ModifiedRequestChangeCommandHandler(IRepository<RequestChangeHistory> repository) : base(repository)
@@ -13,8 +13,8 @@ namespace Template.Services.Command.RequestChangeCommand
 
         public async override Task<bool> Handle(ModifiedRequestChangeCommand request, CancellationToken cancellationToken)
         {
-            var consultation = RequestChangeHistory.CreateChangeHistory(request.IdAppointment, request.IdClient, request.PreviusDate, request.NewDate);
-            _repository.Add(consultation);
+            var requestChange = RequestChangeHistory.CreateChangeHistory(request.IdAppointment, request.IdClient, request.PreviusDate, request.NewDate);
+            _repository.Add(requestChange);
             await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             return true;
         }

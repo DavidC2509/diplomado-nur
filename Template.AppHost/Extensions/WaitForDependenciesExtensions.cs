@@ -1,15 +1,10 @@
 ﻿using Aspire.Hosting.Lifecycle;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
-using Polly.Retry;
 using Polly;
-using System;
+using Polly.Retry;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.ExceptionServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Template.AppHost.Extensions
 {

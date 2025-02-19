@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Template.Domain.ClientAggregate;
-using Template.Domain.MedicalConsultationAggregate;
+﻿using Template.Domain.MedicalConsultationAggregate;
 
 namespace Api.Test.Domain.MedicalTest
 {
@@ -19,7 +13,7 @@ namespace Api.Test.Domain.MedicalTest
             Guid clientId = Guid.NewGuid();
 
             // Act
-            var consult = Consultation.CreateConsult(description, consultExternal, clientId,true);
+            var consult = Consultation.CreateConsult(description, consultExternal, clientId, true);
             Assert.Multiple(() =>
             {
                 // Assert

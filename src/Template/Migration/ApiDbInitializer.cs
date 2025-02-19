@@ -6,7 +6,7 @@ using System.Diagnostics;
 using Template.Command.Database;
 
 
-namespace Template.TemplateMigrate
+namespace Template.Migration
 {
     public class ApiDbInitializer(
      IServiceProvider serviceProvider,

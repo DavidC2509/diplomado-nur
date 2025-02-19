@@ -1,13 +1,11 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Net.Http.Headers;
-using System.Net;
-using System.Text.RegularExpressions;
-using TechTalk.SpecFlow;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Template.Command.Database;
+using Newtonsoft.Json.Linq;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Text.RegularExpressions;
+using TechTalk.SpecFlow;
 
 namespace Api.Test.Integration.Steps
 {

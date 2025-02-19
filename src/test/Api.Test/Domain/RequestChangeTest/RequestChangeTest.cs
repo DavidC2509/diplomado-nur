@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Template.Domain.MedicalConsultationAggregate;
-using Template.Domain.RequestChangeAggregate;
+﻿using Template.Domain.RequestChangeAggregate;
 
 namespace Api.Test.Domain.RequestChangeTest
 {
@@ -20,7 +14,7 @@ namespace Api.Test.Domain.RequestChangeTest
             Guid idClient = Guid.NewGuid();
 
             // Act
-            var requestChange = RequestChangeHistory.CreateChangeHistory(idAppointment, idClient,previusDate,newDate);
+            var requestChange = RequestChangeHistory.CreateChangeHistory(idAppointment, idClient, previusDate, newDate);
             Assert.Multiple(() =>
             {
                 // Assert

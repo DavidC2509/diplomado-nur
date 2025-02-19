@@ -1,12 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Template.Command.Database;
-using Template.Domain.ClientAggregate;
 
 namespace Api.Test.Integration.Steps
 {

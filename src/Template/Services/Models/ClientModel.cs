@@ -6,7 +6,6 @@
         public string Name { get; set; }
         public string? Phone { get; set; }
         public string Email { get; set; }
-        public string EmailAddres { get; set; }
         public List<AddresModel> Addresses { get; set; }
         //public List<MedicaIllnessesModel> MedicalIllnessess { get; set; }
 

@@ -3,6 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using Template.Api.Extensions;
 using Template.Command;
 using Template.Command.Database;
+using Template.ServiceDefaults;
 using Template.Services;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,11 +1,4 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Template.Domain.ClientAggregate;
-using Template.Domain.ValueObjects;
+﻿using Template.Domain.ClientAggregate;
 
 namespace Api.Test.Domain.ClientTest
 {
@@ -19,7 +12,7 @@ namespace Api.Test.Domain.ClientTest
             string phone = "75324397";
             string email = "davidfernando.chavez777@gmail.com";
             // Act
-            var client = Client.CreateClient(name,phone,email);
+            var client = Client.CreateClient(name, phone, email);
             Assert.Multiple(() =>
             {
                 // Assert
@@ -46,7 +39,7 @@ namespace Api.Test.Domain.ClientTest
 
             // Act
             var client = Client.CreateClient(name, phone, email);
-            client.AddAddres(city,addres,latidud,longitud);
+            client.AddAddres(city, addres, latidud, longitud);
             // Assert
             Assert.Multiple(() =>
             {

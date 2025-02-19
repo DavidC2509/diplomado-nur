@@ -1,15 +1,6 @@
-﻿using Core.Cqrs.Domain;
-using Core.Cqrs.Domain.Repository;
-using Microsoft.AspNetCore.Components.Web;
+﻿using Core.Cqrs.Domain.Repository;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Template.Domain.ClientAggregate;
-using Template.Domain.RequestChangeAggregate;
 using Template.Services.Command.ClientCommand;
 
 namespace Api.Test.Aplication.ClientHandler
@@ -52,7 +43,6 @@ namespace Api.Test.Aplication.ClientHandler
             // Assert
             _repository.Verify(x => x.Add(It.IsAny<Client>()), Times.Once);
             _repository.Verify(x => x.UnitOfWork.SaveEntitiesAsync(tcs.Token), Times.Once);
-
         }
 
         [Test]
@@ -89,7 +79,7 @@ namespace Api.Test.Aplication.ClientHandler
             await command.Handle(storeClientCommand, tcs.Token);
 
             // Assert
-            _repository.Verify(x => x.GetByIdAsync(client.Id,tcs.Token), Times.Once);
+            _repository.Verify(x => x.GetByIdAsync(client.Id, tcs.Token), Times.Once);
             _repository.Verify(x => x.UnitOfWork.SaveEntitiesAsync(tcs.Token), Times.Once);
 
         }

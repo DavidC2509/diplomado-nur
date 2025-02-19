@@ -7,7 +7,7 @@ using Template.Services.Models;
 
 namespace Template.Services.Query.MedicalConsultationQuery
 {
-    internal class GetMedicalConsultationByIdQueryHandler : BaseQueryHandler<Consultation, GetMedicalConsultationByIdQuery, MedicalConsultModel>
+    public class GetMedicalConsultationByIdQueryHandler : BaseQueryHandler<Consultation, GetMedicalConsultationByIdQuery, MedicalConsultModel>
     {
         private readonly IMapper _mapper;
 

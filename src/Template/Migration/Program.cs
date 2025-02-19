@@ -3,7 +3,8 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Template.Command;
 using Template.Command.Database;
-using Template.TemplateMigrate;
+using Template.Migration;
+using Template.ServiceDefaults;
 
 var builder = Host.CreateApplicationBuilder(args);
 
