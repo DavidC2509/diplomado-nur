@@ -18,5 +18,7 @@ namespace Template.Command
                     psqlOptions.ExecutionStrategy(c => new RetryingPostgresExecutionStrategy(c));
                 }));
         }
+
+
     }
 }

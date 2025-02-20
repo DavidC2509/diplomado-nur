@@ -8,7 +8,6 @@ Scenario: Registrar Cliente
     "Name": "Prueba Entrada",
     "Phone": "75324397",
     "Email": "davidfernando.chavez777@gmail.com"
- 
     }
     """
     When se solicita "sin" credenciales que se procese a la url "/api/client", usando el metodo "post"

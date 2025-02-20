@@ -6,24 +6,21 @@ using Template.Command.Database;
 using Template.ServiceDefaults;
 using Template.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Services.ConfigureResponseCaching();
 
-
 // Add services to the container.
 builder.Services.AddControllers();
-
 builder.AddNpgsqlDbContext<DataBaseContext>("nutri-solid-database");
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddApplication();
-
 
 builder.Services.AddCors(options =>
 {
@@ -36,12 +33,10 @@ builder.Services.AddCors(options =>
 
 builder.ConfigureSwagger();
 
-
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
     containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
 });
-
 
 var app = builder.Build();
 
@@ -58,16 +53,7 @@ app.MapControllers();
 
 app.UseRouting();
 
-
-//using (var scope = app.Services.CreateScope())
-//{
-//    var dbContext = scope.ServiceProvider
-//        .GetRequiredService<DataBaseContext>();
-
-//    if (app.Environment.IsDevelopment())
-//    {
-//        await dbContext.Database.MigrateAsync();
-//    }
-//}
-
 app.Run();
+
+
+public partial class Program { } // ?? Agrega esta línea

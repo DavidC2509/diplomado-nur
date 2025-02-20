@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
+using Reqnroll;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
-using TechTalk.SpecFlow;
+using Template.Command.Database;
 
 namespace Api.Test.Integration.Steps
 {
@@ -15,7 +17,6 @@ namespace Api.Test.Integration.Steps
         private readonly ScenarioContext _context;
         private readonly WebApplicationFactory<Program> _factory;
 
-
         public CommonStepDefinitions(
            ScenarioContext scenarioContext,
            WebApplicationFactory<Program> webApplicationFactory)
@@ -23,19 +24,29 @@ namespace Api.Test.Integration.Steps
             _context = scenarioContext;
             _factory = webApplicationFactory.WithWebHostBuilder(builder =>
             {
+                // Remover la configuración de PostgreSQL si existe
+
+
                 var projectDir = Directory.GetCurrentDirectory();
                 var configPath = Path.Combine(projectDir, "appsettings.json");
                 builder.ConfigureAppConfiguration((context, config) =>
                 {
                     config.AddJsonFile(configPath);
                 });
-                //builder.ConfigureServices(services =>
-                //{
-                //    services.AddDbContext<DataBaseContext>(options =>
-                //    {
-                //        options.UseInMemoryDatabase(_context.Get<string>("DB_Key"));
-                //    });
-                //});
+
+                builder.ConfigureServices(services =>
+                {
+                    var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<DataBaseContext>));
+                    if (descriptor != null)
+                    {
+                        services.Remove(descriptor);
+                    }
+
+                    services.AddDbContext<DataBaseContext>(options =>
+                    {
+                        options.UseInMemoryDatabase("TesDatabase");
+                    });
+                });
             });
         }
 
@@ -121,7 +132,7 @@ namespace Api.Test.Integration.Steps
             {
                 Console.WriteLine(_context.Get<string>("ResponseBody"));
             }
-            Assert.Equals(statusCode, currentStatus);
+            Assert.That(currentStatus, Is.EqualTo(statusCode));
         }
 
 
@@ -134,7 +145,7 @@ namespace Api.Test.Integration.Steps
         {
             if (shouldBe.StartsWith("no"))
             {
-                Assert.AreNotEqual("[]", _context.Get<string>("ResponseBody"));
+                Assert.That(_context.Get<string>("ResponseBody"), Is.Not.EqualTo("[]"));
             }
             else
             {
@@ -154,7 +165,7 @@ namespace Api.Test.Integration.Steps
         public void ThenLaRespuestaDebeContenerUnBoleano()
         {
             var response2 = _context.Get<string>("ResponseBody");
-            Assert.False(response2.GetType() == typeof(bool));
+            Assert.That(response2.GetType() == typeof(bool), Is.False);
         }
 
         [Then(@"la respuesta debe contener un objeto con estos campos definidos")]
