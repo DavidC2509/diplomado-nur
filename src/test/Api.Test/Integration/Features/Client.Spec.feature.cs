@@ -31,7 +31,7 @@ namespace Api.Test.Integration.Features
         
         private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Integration/Features", "Probar las funcionalidades de cliente", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
-#line 1 "Product.Spec.feature"
+#line 1 "Client.Spec.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]

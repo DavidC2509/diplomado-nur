@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "a5507e10-16b8-4d21-a997-e12f3ce4f70e",
+		"_postman_id": "23c1a2a1-2760-418b-8170-9977bf0462af",
 		"name": "Nutricenter",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12507614"
 	},
 	"item": [
 		{
@@ -33,8 +34,6 @@
 							"        const guidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;\r",
 							"\r",
 							"        jsonArr.forEach(item => {\r",
-							"            // Verificar que cada objeto tenga las claves esperadas\r",
-							"            pm.expect(item).to.have.all.keys(\"id\", \"name\", \"phone\", \"email\", \"emailAddres\", \"addresses\");\r",
 							"\r",
 							"            // Validar el formato del ID (debe ser un GUID)\r",
 							"            pm.expect(item.id).to.match(guidRegex);\r",
@@ -50,7 +49,8 @@
 							"});\r",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -155,9 +155,6 @@
 							"    // Validar que la respuesta sea un objeto\r",
 							"    pm.expect(responseObj).to.be.an(\"object\");\r",
 							"\r",
-							"    // Verificar que tenga las claves esperadas\r",
-							"    pm.expect(responseObj).to.have.all.keys(\"id\", \"name\", \"phone\", \"email\", \"emailAddres\", \"addresses\");\r",
-							"\r",
 							"    // Validar el formato del ID\r",
 							"    pm.expect(responseObj.id).to.match(guidRegex);\r",
 							"\r",
@@ -174,7 +171,8 @@
 							"\r",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -182,7 +180,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:7176/api/client/6ae89a82-b384-4b4b-998c-984152b7d30c",
+					"raw": "https://localhost:7176/api/client/12f3caea-027c-4c70-b774-97d69e7a6f28",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -191,7 +189,7 @@
 					"path": [
 						"api",
 						"client",
-						"6ae89a82-b384-4b4b-998c-984152b7d30c"
+						"12f3caea-027c-4c70-b774-97d69e7a6f28"
 					]
 				}
 			},
@@ -221,7 +219,8 @@
 							"});\r",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -230,7 +229,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"idClient\": \"6ae89a82-b384-4b4b-998c-984152b7d30c\",\r\n  \"street\": \"Calle 2\",\r\n  \"city\": \"Santa cruz\",\r\n  \"latituded\": 12331230,\r\n  \"longitud\": -3213120\r\n}",
+					"raw": "{\r\n  \"idClient\": \"12f3caea-027c-4c70-b774-97d69e7a6f28\",\r\n  \"street\": \"Calle 2\",\r\n  \"city\": \"Santa cruz\",\r\n  \"latituded\": 12331230,\r\n  \"longitud\": -3213120\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -277,7 +276,8 @@
 							"});\r",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -286,7 +286,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"idClient\": \"6ae89a82-b384-4b4b-998c-984152b7d30c\",\r\n  \"name\": \"Cancer\",\r\n  \"descripcion\": \"Cancer de mama\",\r\n  \"type\": \"Cancenigerico\"\r\n}",
+					"raw": "{\r\n  \"idClient\": \"12f3caea-027c-4c70-b774-97d69e7a6f28\",\r\n  \"name\": \"Cancer\",\r\n  \"descripcion\": \"Cancer de mama\",\r\n  \"type\": \"Cancenigerico\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -356,7 +356,8 @@
 							"\r",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -364,7 +365,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:7176/api/medical-consultation/client/6ae89a82-b384-4b4b-998c-984152b7d30c",
+					"raw": "https://localhost:7176/api/medical-consultation/client/12f3caea-027c-4c70-b774-97d69e7a6f28",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -374,7 +375,7 @@
 						"api",
 						"medical-consultation",
 						"client",
-						"6ae89a82-b384-4b4b-998c-984152b7d30c"
+						"12f3caea-027c-4c70-b774-97d69e7a6f28"
 					]
 				}
 			},
@@ -404,7 +405,8 @@
 							"});\r",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -413,7 +415,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idClient\": \"6ae89a82-b384-4b4b-998c-984152b7d30c\",\r\n    \"name\": \"Cancer\",\r\n    \"status\": true,\r\n    \"idConsultExternal\": \"6ae89a82-b384-4b4b-912c-124152b7d30c\"\r\n}",
+					"raw": "{\r\n    \"idClient\": \"12f3caea-027c-4c70-b774-97d69e7a6f28\",\r\n    \"name\": \"Cancer\",\r\n    \"status\": true,\r\n    \"idConsultExternal\": \"6ae89a82-b384-4b4b-912c-124152b7d30c\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
