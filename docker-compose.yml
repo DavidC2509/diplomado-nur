@@ -1,0 +1,145 @@
+version: "3.8"
+
+services:
+  cms:
+    image: wordpress
+    container_name: cms
+    ports:
+      - "8080:80"
+    environment:
+      - WORDPRESS_DB_HOST=cms-db
+      - WORDPRESS_DB_USER=${DB_USER} 
+      - WORDPRESS_DB_PASSWORD=${DB_PASSWORD} 
+      - WORDPRESS_DB_NAME=${DB_NAME} 
+    volumes:
+      - cms-data:/var/www/html
+    depends_on:
+      cms-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    deploy: #Configuraciones a utilizar en un docker swarm
+        replicas: 3
+        update_config: 
+          parallelism: 2
+          delay: 10s
+        restart_policy:
+            condition: on-failure
+        resources:
+            limits:
+                cpus: "0.1"
+                memory: 50M
+            reservations:
+                cpus: "0.01"
+                memory: 20M
+        rollback_config:
+            parallelism: 1
+            delay: 10s
+            failure_action: rollback
+            monitor: 60s
+            max_failure_ratio: 0.3
+
+  cms-db:
+    image: mysql
+    container_name: cms-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD} 
+      - MYSQL_DATABASE=wordpress_db
+      - MYSQL_USER=db_user
+      - MYSQL_PASSWORD=Superseguro12
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "db_user", "-pSuperseguro12"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  cms-data:
+  mysql-data:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# version: '3.8'
+
+# services:
+#   postgres-diplomado:
+#     image: postgres:16.2
+#     container_name: postgres-diplomado
+#     environment:
+#       - POSTGRES_USER=admin
+#       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+#       - POSTGRES_DB=diplomado
+#     ports:
+#       - "5445:5432"
+#     volumes:
+#       - data-postgres-diplomado:/var/lib/postgresql/data
+#     healthcheck:
+#       test: ["CMD", "pg_isready", "-U", "admin"]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 5
+#       start_period: 1s
+
+#   api-database:
+#     image: ${DOCKER_REGISTRY-diplomado}api-database:${TAG:-latest}
+#     container_name: database-api
+#     build:
+#       context: .
+#       dockerfile: src/Template/Migration/Dockerfile
+#     environment:
+#       - ASPNETCORE_ENVIRONMENT
+#       - ConnectionStrings__nutri-solid-database=Host=postgres-diplomado;Port=5432;Database=diplomado;Username=admin;Password=${POSTGRES_PASSWORD}
+#     depends_on:
+#       postgres-diplomado:
+#         condition: service_healthy
+
+#   api:
+#     image: ${DOCKER_REGISTRY-diplomado}api:${TAG:-latest}
+#     container_name: diplomado-api
+#     build:
+#       context: .
+#       dockerfile: src/Template/Api/Dockerfile
+#     environment:
+#       - ASPNETCORE_ENVIRONMENT
+#       - ConnectionStrings__nutri-solid-database=Host=postgres-diplomado;Port=5432;Database=diplomado;Username=admin;Password=${POSTGRES_PASSWORD}
+#     ports:
+#       - "5101:8080"
+#       - "50002:8081"
+#     depends_on:
+#       postgres-diplomado:
+#         condition: service_healthy
+
+# volumes:
+#   data-postgres-diplomado:

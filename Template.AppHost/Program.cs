@@ -18,7 +18,7 @@ builder.AddProject<Migration>("nutri-solid-migration")
     .WithReference(postgresDbNext).WaitFor(postgresDbNext);
 
 var api = builder.AddProject<Api>("nutri-solid")
-        .WithReference(postgresDbNext).WaitFor(postgresDbNext); ;
+        .WithReference(postgresDbNext).WaitFor(postgresDbNext);
 
 #endregion
 
