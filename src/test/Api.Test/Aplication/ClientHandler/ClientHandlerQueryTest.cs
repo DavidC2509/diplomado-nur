@@ -86,5 +86,3 @@ namespace Api.Test.Aplication.ClientHandler
 
     }
 }
-
-

@@ -40,8 +40,8 @@ namespace Api.Test.Aplication
 
             // Assert
             Assert.IsNotNull(clientModel);
-            Assert.AreEqual(client.Name, clientModel.Name);
-            Assert.AreEqual(client.Phone, clientModel.Phone);
+            Assert.That(clientModel.Name, Is.EqualTo(client.Name));
+            Assert.That(clientModel.Phone, Is.EqualTo(client.Phone));
         }
 
         [Test]
@@ -55,12 +55,10 @@ namespace Api.Test.Aplication
 
             // Assert
             Assert.IsNotNull(addressModel);
-            Assert.AreEqual(address.Street, addressModel.Street);
-            Assert.AreEqual(address.City, addressModel.City);
-            Assert.AreEqual(address.Latituded, addressModel.Latituded);
-            Assert.AreEqual(address.Longitud, addressModel.Longitud);
+            Assert.That(addressModel.Street, Is.EqualTo(address.Street));
+            Assert.That(addressModel.City, Is.EqualTo(address.City));
+            Assert.That(addressModel.Latituded, Is.EqualTo(address.Latituded));
+            Assert.That(addressModel.Longitud, Is.EqualTo(address.Longitud));
         }
     }
 }
-
-

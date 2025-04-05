@@ -298,4 +298,3 @@ namespace Template.AppHost.Extensions
         }
     }
 }
-
