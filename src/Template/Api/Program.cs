@@ -42,12 +42,10 @@ var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// O bien si quieres usarlo siempre (desarrollo y producción):
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseCors("_myAllowSpecificOrigins");
 app.MapControllers();
 
