@@ -2,7 +2,8 @@ name: SonarQube
 on:
   push:
     branches:
-      - test
+      - main
+      - dev
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -10,16 +11,17 @@ jobs:
   build:
     name: Build and analyze
     runs-on: windows-latest
+
     steps:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: 17
-          distribution: 'zulu' # Alternative distribution options are available.
+          distribution: 'zulu'
 
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
 
       - name: Cache SonarQube Cloud packages
         uses: actions/cache@v4
@@ -43,14 +45,36 @@ jobs:
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
+      - name: Install ReportGenerator
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
       - name: Install required workloads
         run: dotnet workload restore
 
-      - name: Build and analyze
+      - name: Begin SonarScanner
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"DavidC2509_diplomado-nur" /o:"davidc2509" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet build
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          .\.sonar\scanner\dotnet-sonarscanner begin `
+            /k:"DavidC2509_diplomado-nur" `
+            /o:"davidc2509" `
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
+            /d:sonar.host.url="https://sonarcloud.io" `
+            /d:sonar.cs.opencover.reportsPaths="CoverageReport/Cobertura.xml"
+
+      - name: Run tests with coverage
+        run: dotnet test --collect:"XPlat Code Coverage" --results-directory TestResults
+
+      - name: Convert coverage to cobertura
+        run: |
+          reportgenerator -reports:TestResults/**/*.xml -targetdir:CoverageReport -reporttypes:Cobertura
+        env:
+          PATH: ${{ env.PATH }};C:\Users\runneradmin\.dotnet\tools
+
+      - name: Build
+        run: dotnet build
+
+      - name: End SonarScanner
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
