@@ -45,15 +45,11 @@ jobs:
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
+      - name: Install ReportGenerator
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
       - name: Install required workloads
         run: dotnet workload restore
-
-      - name: Run tests with coverage
-        run: dotnet test --collect:"XPlat Code Coverage" --results-directory TestResults
-
-      - name: Convert coverage to cobertura
-        run: |
-          reportgenerator -reports:TestResults/**/*.xml -targetdir:CoverageReport -reporttypes:Cobertura
 
       - name: Begin SonarScanner
         env:
@@ -66,6 +62,15 @@ jobs:
             /d:sonar.host.url="https://sonarcloud.io" `
             /d:sonar.cs.opencover.reportsPaths="CoverageReport/Cobertura.xml"
 
+      - name: Run tests with coverage
+        run: dotnet test --collect:"XPlat Code Coverage" --results-directory TestResults
+
+      - name: Convert coverage to cobertura
+        run: |
+          reportgenerator -reports:TestResults/**/*.xml -targetdir:CoverageReport -reporttypes:Cobertura
+        env:
+          PATH: ${{ env.PATH }};C:\Users\runneradmin\.dotnet\tools
+
       - name: Build
         run: dotnet build
 
@@ -73,4 +78,3 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-
