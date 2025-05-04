@@ -60,14 +60,14 @@ jobs:
             /o:"davidc2509" `
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="https://sonarcloud.io" `
-            /d:sonar.cs.opencover.reportsPaths="CoverageReport/Cobertura.xml"
+            /d:sonar.cs.opencover.reportsPaths="CoverageReport/coverage.opencover.xml"
 
       - name: Run tests with coverage
         run: dotnet test --collect:"XPlat Code Coverage" --results-directory TestResults
 
-      - name: Convert coverage to cobertura
+      - name: Convert coverage to opencover
         run: |
-          reportgenerator -reports:TestResults/**/*.xml -targetdir:CoverageReport -reporttypes:Cobertura
+          reportgenerator -reports:TestResults/**/*.xml -targetdir:CoverageReport -reporttypes:opencover
         env:
           PATH: ${{ env.PATH }};C:\Users\runneradmin\.dotnet\tools
 
