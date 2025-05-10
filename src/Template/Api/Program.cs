@@ -15,7 +15,8 @@ builder.Services.ConfigureResponseCaching();
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.AddNpgsqlDbContext<DataBaseContext>("nutri-solid-database");
+
+builder.AddNpgsqlDbContext<DataBaseContext>("nutri_solid_database");
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -37,12 +38,16 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
     containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
 });
+builder.Services.AddApplicationInsightsTelemetry(new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
+{
+    ConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]
+});
 
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-// O bien si quieres usarlo siempre (desarrollo y producción):
+// O bien si quieres usarlo siempre (desarrollo y producciï¿½n):
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -54,4 +59,4 @@ app.UseRouting();
 app.Run();
 
 
-public partial class Program { } // ?? Agrega esta línea
+public partial class Program { } // ?? Agrega esta lï¿½nea

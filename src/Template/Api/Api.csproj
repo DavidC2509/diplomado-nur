@@ -10,10 +10,13 @@
 	  <AssemblyName>Template.$(MSBuildProjectName)</AssemblyName>
 	  <RootNamespace>Template.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 	  <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+	  <ApplicationInsightsResourceId>/subscriptions/4e5af713-c4fe-4516-8c41-812212cdc2c0/resourcegroups/DavidGroup/providers/microsoft.insights/components/Api</ApplicationInsightsResourceId>
   </PropertyGroup>
 
   <ItemGroup>
+	  <PackageReference Include="Azure.Identity" Version="1.13.0" />
 	  <PackageReference Include="Core.Cqrs.ControllerCqrs" Version="1.0.0" />
+	  <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
 	  <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
