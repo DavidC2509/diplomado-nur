@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
 using Template.Api.Extensions;
 using Template.Command;
 using Template.Command.Database;
@@ -15,7 +16,8 @@ builder.Services.ConfigureResponseCaching();
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.AddNpgsqlDbContext<DataBaseContext>("nutri-solid-database");
+
+builder.AddNpgsqlDbContext<DataBaseContext>("nutri_solid_database");
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -33,6 +35,12 @@ builder.Services.AddCors(options =>
 
 builder.ConfigureSwagger();
 
+// The following line enables Application Insights telemetry collection.
+
+builder.Services.AddApplicationInsightsTelemetry();
+// Add OpenTelemetry and configure it to use Azure Monitor.
+builder.Services.AddOpenTelemetry().UseAzureMonitor();
+
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
     containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
@@ -42,7 +50,7 @@ var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-// O bien si quieres usarlo siempre (desarrollo y producción):
+// O bien si quieres usarlo siempre (desarrollo y producciï¿½n):
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -54,4 +62,4 @@ app.UseRouting();
 app.Run();
 
 
-public partial class Program { } // ?? Agrega esta línea
+public partial class Program { } // ?? Agrega esta lï¿½nea
