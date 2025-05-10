@@ -67,10 +67,17 @@ jobs:
 
       - name: Convert coverage to opencover
         run: |
-          reportgenerator -reports:TestResults/**/*.xml -targetdir:CoverageReport -reporttypes:opencover
+          reportgenerator `
+            -reports:TestResults/**/*.xml `
+            -targetdir:CoverageReport `
+            -reporttypes:opencover `
+            -reportfile:CoverageReport/coverage.opencover.xml
         env:
           PATH: ${{ env.PATH }};C:\Users\runneradmin\.dotnet\tools
-
+      
+      - name: Debug - list coverage files
+        run: dir CoverageReport /s
+        
       - name: Build
         run: dotnet build
 
