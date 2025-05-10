@@ -76,8 +76,9 @@ jobs:
           PATH: ${{ env.PATH }};C:\Users\runneradmin\.dotnet\tools
       
       - name: Debug - list coverage files
-        run: dir CoverageReport /s
-        
+        shell: pwsh
+        run: Get-ChildItem -Recurse -Path CoverageReport | Format-List FullName
+
       - name: Build
         run: dotnet build
 
