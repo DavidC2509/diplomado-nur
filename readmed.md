@@ -19,6 +19,8 @@ Pasos
 Add Migration
 	*cd .\src\Template\Command*
 	*dotnet ef --startup-project ..\Api\ -v migrations add "Inital"*
+	*dotnet ef --startup-project ..\Migration\ -v database update*
+	dotnet ef database update --startup-project ..\Api\ --project ..\Template.Command\
 
 
 ## Aspire Comand Line
