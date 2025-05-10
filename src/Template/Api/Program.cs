@@ -1,6 +1,5 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Azure.Monitor.OpenTelemetry.AspNetCore;
 using Template.Api.Extensions;
 using Template.Command;
 using Template.Command.Database;
@@ -36,10 +35,8 @@ builder.Services.AddCors(options =>
 builder.ConfigureSwagger();
 
 // The following line enables Application Insights telemetry collection.
-
 builder.Services.AddApplicationInsightsTelemetry();
-// Add OpenTelemetry and configure it to use Azure Monitor.
-builder.Services.AddOpenTelemetry().UseAzureMonitor();
+
 
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
