@@ -59,7 +59,8 @@ jobs:
           reportgenerator `
             -reports:"TestResults/**/coverage.cobertura.xml" `
             -targetdir:"CoverageReport" `
-            -reporttypes:"Cobertura"
+            -reporttypes:"Cobertura" `
+            -reportfile:"Cobertura.xml" 
         env:
           PATH: ${{ env.PATH }};C:\Users\runneradmin\.dotnet\tools
       
