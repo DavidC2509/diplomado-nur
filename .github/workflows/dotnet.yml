@@ -51,6 +51,7 @@ jobs:
       - name: Run tests with coverage
         run: |
           dotnet test `
+            --no-build `
             --collect:"XPlat Code Coverage" `
             --results-directory ./TestResults
 
@@ -69,7 +70,7 @@ jobs:
 
       - name: Install required workloads
         run: dotnet workload restore
-        
+
       - name: Begin SonarScanner
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
