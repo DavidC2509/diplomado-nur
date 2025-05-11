@@ -45,6 +45,9 @@ jobs:
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
+      - name: Install required workloads
+        run: dotnet workload restore
+        
       - name: Install ReportGenerator
         run: dotnet tool install --global dotnet-reportgenerator-globaltool
 
@@ -67,9 +70,6 @@ jobs:
       - name: Debug - list coverage files
         shell: pwsh
         run: Get-ChildItem -Recurse -Path CoverageReport | Format-List FullName
-
-      - name: Install required workloads
-        run: dotnet workload restore
 
       - name: Begin SonarScanner
         env:
