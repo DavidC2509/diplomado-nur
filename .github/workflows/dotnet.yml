@@ -45,11 +45,30 @@ jobs:
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
+      - name: Install required workloads
+        run: dotnet workload restore
+
       - name: Install ReportGenerator
         run: dotnet tool install --global dotnet-reportgenerator-globaltool
 
-      - name: Install required workloads
-        run: dotnet workload restore
+      - name: Run tests with coverage
+        run: |
+          dotnet test `
+            --collect:"XPlat Code Coverage" `
+            --results-directory ./TestResults
+
+      - name: Convert coverage to cobertura
+        run: |
+          reportgenerator `
+            -reports:"TestResults/**/coverage.cobertura.xml" `
+            -targetdir:"CoverageReport" `
+            -reporttypes:"Cobertura"
+        env:
+          PATH: ${{ env.PATH }};C:\Users\runneradmin\.dotnet\tools
+
+      - name: Debug - list coverage files
+        shell: pwsh
+        run: Get-ChildItem -Recurse -Path CoverageReport | Format-List FullName
 
       - name: Begin SonarScanner
         env:
@@ -60,25 +79,8 @@ jobs:
             /o:"davidc2509" `
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="https://sonarcloud.io" `
-            /d:sonar.cs.opencover.reportsPaths="CoverageReport/coverage.opencover.xml"
-
-      - name: Run tests with coverage
-        run: dotnet test --collect:"XPlat Code Coverage" --results-directory TestResults
-
-      - name: Convert coverage to opencover
-        run: |
-          reportgenerator `
-            -reports:TestResults/**/*.xml `
-            -targetdir:CoverageReport `
-            -reporttypes:opencover `
-            -reportfile:CoverageReport/coverage.opencover.xml
-        env:
-          PATH: ${{ env.PATH }};C:\Users\runneradmin\.dotnet\tools
-      
-      - name: Debug - list coverage files
-        shell: pwsh
-        run: Get-ChildItem -Recurse -Path CoverageReport | Format-List FullName
-
+            /d:sonar.cs.cobertura.reportsPaths="CoverageReport/Cobertura.xml"
+            
       - name: Build
         run: dotnet build
 
