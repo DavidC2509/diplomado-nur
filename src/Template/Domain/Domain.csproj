@@ -11,7 +11,7 @@
 
   <ItemGroup>
 	<PackageReference Include="Core.Cqrs.Domain" Version="1.0.0" />
-
+  <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.19.0" />
   </ItemGroup>
 
   <ItemGroup>

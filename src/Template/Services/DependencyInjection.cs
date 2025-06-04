@@ -7,10 +7,6 @@ namespace Template.Services
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            //var serviceClientSettings = new RabbitConfigurationProvider().GetConfiguration();
-
-            //services.AddSingleton<IRabbitConfigurationProvider, RabbitConfigurationProvider>();
-
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

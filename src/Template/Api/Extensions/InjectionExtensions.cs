@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 
 namespace Template.Api.Extensions
 {
