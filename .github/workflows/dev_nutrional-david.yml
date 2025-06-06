@@ -25,7 +25,7 @@ jobs:
       - name: Restore
         run: dotnet restore src/Template/Api
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build src/Template/Api --configuration Release --no-restore
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
