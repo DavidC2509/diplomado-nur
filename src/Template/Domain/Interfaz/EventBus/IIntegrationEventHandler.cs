@@ -1,18 +1,10 @@
-﻿using Azure.Messaging.ServiceBus;
+﻿using Azure.Messaging.EventHubs.Processor;
 
 namespace Template.Domain.Interfaz.EventBus
 {
     public interface IIntegrationEventHandler
     {
-        Task MessageHandler(ProcessMessageEventArgs args);
-
+        Task MessageHandler(string message);
         Task ErrorHandler(ProcessErrorEventArgs args);
     };
-
-    public interface IIntegrationEventHandlersMethods
-    {
-        Task MessageHandler(ProcessMessageEventArgs args);
-
-        Task ErrorHandler(ProcessErrorEventArgs args);
-    }
 }

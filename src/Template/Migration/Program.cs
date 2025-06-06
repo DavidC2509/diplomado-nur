@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
 using Template.Command;
 using Template.Command.Database;
 using Template.Migration;
@@ -19,7 +18,7 @@ builder.ConfigureContainer(new AutofacServiceProviderFactory(), containerBuilder
 {
     containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
 });
-builder.Services.AddDbContext(builder.Configuration.GetConnectionString("nutri_solid_database")!);
+builder.Services.AddDbContext("Host=database-postgres.postgres.database.azure.com;Port=5432;Database=david2;Username=nutripostgres;Password=LinkinPark#2025;Ssl Mode=Require;Trust Server Certificate=true");
 
 builder.EnrichNpgsqlDbContext<DataBaseContext>(settings =>
 // Disable Aspire default retries as we're using a custom execution strategy

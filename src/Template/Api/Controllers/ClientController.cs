@@ -25,13 +25,6 @@ namespace Template.Api.Controllers
         [HttpGet("{id}")]
         public Task<ActionResult<ClientModel>> GetClient(Guid id) => SendRequest(new GetClientQuery(id));
 
-
-        ///<summary>
-        ///Crear Cliente
-        ///</summary>
-        [HttpPost()]
-        public Task<ActionResult<bool>> StoreAccout([FromBody] StoreClientCommand command) => SendRequest(command);
-
         ///<summary>
         ///Agregar Direccion
         ///</summary>
@@ -43,5 +36,13 @@ namespace Template.Api.Controllers
         ///</summary>
         [HttpPost("medical-illneses")]
         public Task<ActionResult<bool>> AddMedicalIllneses([FromBody] AddMedicalIllnessesCommand command) => SendRequest(command);
+
+
+        ///<summary>
+        ///Cambia fecha del delivery
+        ///</summary>
+        [HttpPost("update-date-delivery")]
+        public Task<ActionResult<bool>> UpdateDateDelivery([FromBody] AddAddresByClientCommand command) => SendRequest(command);
+
     }
 }

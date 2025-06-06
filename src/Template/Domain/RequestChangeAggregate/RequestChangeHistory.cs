@@ -9,18 +9,16 @@ namespace Template.Domain.RequestChangeAggregate
     {
         public Guid IdAppointment { get; private set; }
         public Guid IdClient { get; private set; }
-
         public DateTime PreviusDate { get; private set; }
         public DateTime NewDate { get; private set; }
         public DateTime RegisterDate { get; private set; }
 
 
         public IReadOnlyCollection<INotification> DomainEvents => _domainEvents.AsReadOnly();
-        private List<INotification> _domainEvents = new();
+        private readonly List<INotification> _domainEvents = [];
 
         public IReadOnlyCollection<INotification> DomainEventsAwait => _domainEventsAwait.AsReadOnly();
-        private List<INotification> _domainEventsAwait = new();
-
+        private readonly List<INotification> _domainEventsAwait = [];
 
 
         private RequestChangeHistory()
@@ -45,7 +43,7 @@ namespace Template.Domain.RequestChangeAggregate
 
         public void AddNotifiedNutrionEvent()
         {
-            var categoryDefaultEvent = new NotifiedNutrionEvent(IdClient);
+            var categoryDefaultEvent = new UpdateDateDeliveryNotifiedNutrionEvent(IdClient, PreviusDate, NewDate);
             _domainEventsAwait.Add(categoryDefaultEvent);
         }
 
