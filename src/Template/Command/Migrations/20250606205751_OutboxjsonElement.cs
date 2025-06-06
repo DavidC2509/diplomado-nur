@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
+using System.Text.Json;
 
 #nullable disable
 
 namespace Template.Command.Migrations
 {
     /// <inheritdoc />
-    public partial class Inital : Migration
+    public partial class OutboxjsonElement : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,6 +39,24 @@ namespace Template.Command.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Consultations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OutboxMessage",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    EventType = table.Column<string>(type: "text", nullable: false),
+                    EventVersion = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Body = table.Column<JsonElement>(type: "jsonb", nullable: false),
+                    Sent = table.Column<bool>(type: "boolean", nullable: false),
+                    Source = table.Column<string>(type: "text", nullable: false),
+                    TimestampSend = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OutboxMessage", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,6 +191,9 @@ namespace Template.Command.Migrations
 
             migrationBuilder.DropTable(
                 name: "MedicalIllnessess");
+
+            migrationBuilder.DropTable(
+                name: "OutboxMessage");
 
             migrationBuilder.DropTable(
                 name: "RequestChangeHistorys");

@@ -35,10 +35,10 @@ namespace Template.Domain.ClientAggregate
         public static Client CreateClient(string name, string phone, string email)
             => new(name, phone, email);
 
-        public void AddAddres(string street, string city, decimal latituded, decimal longitud)
+        public void AddAddres(string street, string city, decimal latituded, decimal longitud, Guid clientGuid)
         {
             _addresses.ForEach(address => address.UpdateStatus(false));
-            _addresses.Add(Address.StoreAddres(street, city, latituded, longitud));
+            _addresses.Add(Address.StoreAddres(street, city, latituded, longitud, clientGuid));
         }
 
         public void AddMedicalIllnesses(string name, string descripcion, string type)

@@ -39,7 +39,7 @@ namespace Api.Test.Domain.ClientTest
 
             // Act
             var client = Client.CreateClient(name, phone, email);
-            client.AddAddres(city, addres, latidud, longitud);
+            client.AddAddres(city, addres, latidud, longitud, client.Id);
             // Assert
             Assert.Multiple(() =>
             {

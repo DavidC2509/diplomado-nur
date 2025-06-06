@@ -48,7 +48,7 @@ namespace Api.Test.Aplication
         public void Should_Map_Address_To_AddresModel()
         {
             // Arrange
-            var address = Address.StoreAddres("Street 1", "City 1", 10.0m, 20.0m);
+            var address = Address.StoreAddres("Street 1", "City 1", 10.0m, 20.0m, Guid.NewGuid());
 
             // Act
             var addressModel = _mapper.Map<AddresModel>(address);
