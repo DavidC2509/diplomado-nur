@@ -30,7 +30,7 @@ namespace Template.Api.Controllers
         ///Crear consulta medica
         ///</summary>
         [HttpPost()]
-        public Task<ActionResult<bool>> StoreAccout([FromBody] StoreMedicalConsultCommand command) => SendRequest(command);
+        public Task<ActionResult<bool>> StoreConsultMedical([FromBody] StoreMedicalConsultCommand command) => SendRequest(command);
 
     }
 }

@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Template.Api.BackgroundsServices;
 using Template.Api.Extensions;
 using Template.Command;
 using Template.Command.Database;
@@ -21,6 +22,11 @@ builder.AddNpgsqlDbContext<DataBaseContext>("nutri_solid_database");
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddApplication(builder.Configuration);
+
+//Background service
+builder.Services.AddHostedService<AzureEventHubConsumerHostedService>();
+builder.Services.AddHostedService<OutboxPublisherService>();
+
 
 builder.Services.AddCors(options =>
 {

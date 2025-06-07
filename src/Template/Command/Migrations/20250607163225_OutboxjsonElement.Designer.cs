@@ -13,7 +13,7 @@ using Template.Command.Database;
 namespace Template.Command.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20250606205751_OutboxjsonElement")]
+    [Migration("20250607163225_OutboxjsonElement")]
     partial class OutboxjsonElement
     {
         /// <inheritdoc />
@@ -40,6 +40,9 @@ namespace Template.Command.Migrations
                     b.Property<Guid>("ClientId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("DateDeliveryDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<decimal>("Latituded")
                         .HasColumnType("numeric");
 
@@ -64,8 +67,7 @@ namespace Template.Command.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasDefaultValueSql("gen_random_uuid()");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("AddressId")
                         .HasColumnType("uuid");
@@ -195,9 +197,6 @@ namespace Template.Command.Migrations
                     b.Property<JsonElement>("Body")
                         .HasColumnType("jsonb");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("EventType")
                         .IsRequired()
                         .HasColumnType("text");
@@ -212,6 +211,9 @@ namespace Template.Command.Migrations
                     b.Property<string>("Source")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("TimestampSend")
                         .HasColumnType("timestamp with time zone");
@@ -228,7 +230,7 @@ namespace Template.Command.Migrations
                         .HasColumnType("uuid")
                         .HasDefaultValueSql("gen_random_uuid()");
 
-                    b.Property<Guid>("IdAppointment")
+                    b.Property<Guid>("AppointmentGuid")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("IdClient")

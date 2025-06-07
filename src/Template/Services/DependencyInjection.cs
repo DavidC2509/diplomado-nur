@@ -5,7 +5,6 @@ using Template.Domain.Interfaz;
 using Template.Domain.Interfaz.EventBus;
 using Template.Services.EventsRecive.Handler;
 using Template.Services.Interface;
-using Template.Services.ListBackgroundService;
 using Template.Services.ServciesBus;
 
 namespace Template.Services
@@ -22,14 +21,12 @@ namespace Template.Services
             services.Configure<ServiceBusSettings>(configuration.GetSection("ServiceBusSettings"));
 
             services.AddScoped<IEventBusService, AzureServiceBusService>(); // Solo para enviar
-            services.AddHostedService<AzureEventHubConsumerHostedService>(); // Escucha mensajes y ejecuta handlers
 
             //Handler recieved
             services.AddScoped<UserCreateReciveIntegrationEventHandler>();
 
             //Outbox
             services.AddScoped<IOutboxService, OutboxService>();
-            services.AddHostedService<OutboxPublisherService>();
 
 
             return services;

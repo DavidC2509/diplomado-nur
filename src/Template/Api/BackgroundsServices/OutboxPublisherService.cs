@@ -1,9 +1,8 @@
-﻿using Microsoft.Extensions.Hosting;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Template.Domain.Interfaz;
 using Template.Domain.Interfaz.EventBus;
 
-namespace Template.Services.ListBackgroundService
+namespace Template.Api.BackgroundsServices
 {
     public class OutboxPublisherService : BackgroundService
     {
@@ -26,7 +25,7 @@ namespace Template.Services.ListBackgroundService
                 {
                     try
                     {
-                        string bodySend = JsonSerializer.Serialize(msg, new JsonSerializerOptions { WriteIndented = true });
+                        string bodySend = JsonSerializer.Serialize(msg, new JsonSerializerOptions { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 
                         await _eventBus.SendMessageAsync("cateringhub", bodySend);
 
@@ -38,7 +37,7 @@ namespace Template.Services.ListBackgroundService
                     }
                 }
 
-                await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken); // delay entre ciclos
+                await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken); // delay entre ciclos
             }
         }
     }

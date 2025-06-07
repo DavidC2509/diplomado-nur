@@ -7,7 +7,7 @@ namespace Template.Domain.RequestChangeAggregate
 {
     public class RequestChangeHistory : BaseEntity, IAggregateRoot, IDataTenantId
     {
-        public Guid IdAppointment { get; private set; }
+        public Guid AppointmentGuid { get; private set; }
         public Guid IdClient { get; private set; }
         public DateTime PreviusDate { get; private set; }
         public DateTime NewDate { get; private set; }
@@ -25,9 +25,9 @@ namespace Template.Domain.RequestChangeAggregate
 
         }
 
-        internal RequestChangeHistory(Guid idAppointment, Guid idClient, DateTime previusDate, DateTime newDate) : this()
+        internal RequestChangeHistory(Guid appointmentGuid, Guid idClient, DateTime previusDate, DateTime newDate) : this()
         {
-            IdAppointment = idAppointment;
+            AppointmentGuid = appointmentGuid;
             IdClient = idClient;
             PreviusDate = previusDate;
             NewDate = newDate;
@@ -37,8 +37,8 @@ namespace Template.Domain.RequestChangeAggregate
             AddNotifiedNutrionEvent();
         }
 
-        public static RequestChangeHistory CreateChangeHistory(Guid idAppointment, Guid idClient, DateTime previusDate, DateTime newDate)
-            => new(idAppointment, idClient, previusDate, newDate);
+        public static RequestChangeHistory CreateChangeHistory(Guid appointmentGuid, Guid idClient, DateTime previusDate, DateTime newDate)
+            => new(appointmentGuid, idClient, previusDate, newDate);
 
         public void AddNotifiedNutrionEvent()
         {

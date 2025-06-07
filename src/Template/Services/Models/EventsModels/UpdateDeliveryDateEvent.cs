@@ -1,10 +1,10 @@
-﻿namespace Template.Services.Models
+﻿namespace Template.Services.Models.EventsModels
 {
     public class UpdateDeliveryDateEvent
     {
-        public Guid IdClient { get; set; }
+        public Guid ClientGuid { get; set; }
         public DateTime PreviusDate { get; set; }
         public DateTime NewDate { get; set; }
-        public Guid AddresGuid { get; set; }
+        public Guid AddressGuid { get; set; }
     }
 }

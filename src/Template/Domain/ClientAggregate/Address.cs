@@ -12,6 +12,8 @@ namespace Template.Domain.ClientAggregate
         public decimal Latituded { get; private set; }
         public decimal Longitud { get; private set; }
         public bool Status { get; private set; }
+        public DateTime DateDeliveryDate { get; private set; }
+
         private readonly List<AddressHistory> _history;
         public IEnumerable<AddressHistory> History => _history.AsReadOnly();
 
@@ -32,21 +34,29 @@ namespace Template.Domain.ClientAggregate
             _history = [];
         }
 
-        internal Address(string street, string city, decimal latituded, decimal longitud) : this()
+        internal Address(string street, string city, decimal latituded, decimal longitud, DateTime dateDeliveryDate) : this()
         {
             Street = street;
             City = city;
             Latituded = latituded;
             Longitud = longitud;
+            DateDeliveryDate = dateDeliveryDate;
             Status = true;
         }
 
-        public static Address StoreAddres(string street, string city, decimal latituded, decimal longitud)
-        => new(street, city, latituded, longitud);
+        public static Address StoreAddres(string street, string city, decimal latituded, decimal longitud, DateTime dateDeliveryDate)
+        => new(street, city, latituded, longitud, dateDeliveryDate);
 
         public void UpdateStatus(bool status)
         {
             Status = status;
+        }
+
+        public void UpdateDateDelivery(DateTime dateDeliveryDate, Guid clientGuid)
+        {
+            var eventAddres = new UpdateDateDeliveryEvent(clientGuid, DateDeliveryDate, dateDeliveryDate, Id);
+            DateDeliveryDate = dateDeliveryDate;
+            _domainEvents.Add(eventAddres);
         }
 
         public void NotificationEvent(Guid clientGuid)
