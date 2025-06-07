@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Template.Api.BackgroundsServices;
 using Template.Api.Extensions;
 using Template.Command;
 using Template.Command.Database;
@@ -15,13 +16,17 @@ builder.Services.ConfigureResponseCaching();
 
 // Add services to the container.
 builder.Services.AddControllers();
-
 builder.AddNpgsqlDbContext<DataBaseContext>("nutri_solid_database");
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddApplication();
+builder.Services.AddApplication(builder.Configuration);
+
+//Background service
+builder.Services.AddHostedService<AzureEventHubConsumerHostedService>();
+builder.Services.AddHostedService<OutboxPublisherService>();
+
 
 builder.Services.AddCors(options =>
 {
@@ -34,13 +39,13 @@ builder.Services.AddCors(options =>
 
 builder.ConfigureSwagger();
 
+// The following line enables Application Insights telemetry collection.
+builder.Services.AddApplicationInsightsTelemetry();
+
+
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
     containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
-});
-builder.Services.AddApplicationInsightsTelemetry(new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
-{
-    ConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]
 });
 
 var app = builder.Build();

@@ -7,20 +7,17 @@ namespace Template.Domain.RequestChangeAggregate
 {
     public class RequestChangeHistory : BaseEntity, IAggregateRoot, IDataTenantId
     {
-        public Guid IdAppointment { get; private set; }
+        public Guid AppointmentGuid { get; private set; }
         public Guid IdClient { get; private set; }
-
         public DateTime PreviusDate { get; private set; }
         public DateTime NewDate { get; private set; }
         public DateTime RegisterDate { get; private set; }
 
-
         public IReadOnlyCollection<INotification> DomainEvents => _domainEvents.AsReadOnly();
-        private List<INotification> _domainEvents = new();
+        private readonly List<INotification> _domainEvents = [];
 
         public IReadOnlyCollection<INotification> DomainEventsAwait => _domainEventsAwait.AsReadOnly();
-        private List<INotification> _domainEventsAwait = new();
-
+        private readonly List<INotification> _domainEventsAwait = [];
 
 
         private RequestChangeHistory()
@@ -28,9 +25,9 @@ namespace Template.Domain.RequestChangeAggregate
 
         }
 
-        internal RequestChangeHistory(Guid idAppointment, Guid idClient, DateTime previusDate, DateTime newDate) : this()
+        internal RequestChangeHistory(Guid appointmentGuid, Guid idClient, DateTime previusDate, DateTime newDate) : this()
         {
-            IdAppointment = idAppointment;
+            AppointmentGuid = appointmentGuid;
             IdClient = idClient;
             PreviusDate = previusDate;
             NewDate = newDate;
@@ -40,12 +37,12 @@ namespace Template.Domain.RequestChangeAggregate
             AddNotifiedNutrionEvent();
         }
 
-        public static RequestChangeHistory CreateChangeHistory(Guid idAppointment, Guid idClient, DateTime previusDate, DateTime newDate)
-            => new(idAppointment, idClient, previusDate, newDate);
+        public static RequestChangeHistory CreateChangeHistory(Guid appointmentGuid, Guid idClient, DateTime previusDate, DateTime newDate)
+            => new(appointmentGuid, idClient, previusDate, newDate);
 
         public void AddNotifiedNutrionEvent()
         {
-            var categoryDefaultEvent = new NotifiedNutrionEvent(IdClient);
+            var categoryDefaultEvent = new UpdateDateDeliveryNotifiedNutrionEvent(IdClient, PreviusDate, NewDate);
             _domainEventsAwait.Add(categoryDefaultEvent);
         }
 

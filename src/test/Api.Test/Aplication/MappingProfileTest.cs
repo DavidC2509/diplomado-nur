@@ -33,7 +33,7 @@ namespace Api.Test.Aplication
         public void Should_Map_Client_To_ClientModel()
         {
             // Arrange
-            var client = Client.CreateClient("David 2", "75324397112", "davidfernando.chavez777331@gmail.com");
+            var client = Client.CreateClient("David 2", "75324397112", "davidfernando.chavez777331@gmail.com", Guid.NewGuid());
 
             // Act
             var clientModel = _mapper.Map<ClientModel>(client);
@@ -48,7 +48,7 @@ namespace Api.Test.Aplication
         public void Should_Map_Address_To_AddresModel()
         {
             // Arrange
-            var address = Address.StoreAddres("Street 1", "City 1", 10.0m, 20.0m);
+            var address = Address.StoreAddres("Street 1", "City 1", 10.0m, 20.0m, DateTime.Now.ToUniversalTime());
 
             // Act
             var addressModel = _mapper.Map<AddresModel>(address);

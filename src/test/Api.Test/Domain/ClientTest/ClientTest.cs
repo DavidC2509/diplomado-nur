@@ -12,7 +12,7 @@ namespace Api.Test.Domain.ClientTest
             string phone = "75324397";
             string email = "davidfernando.chavez777@gmail.com";
             // Act
-            var client = Client.CreateClient(name, phone, email);
+            var client = Client.CreateClient(name, phone, email, Guid.NewGuid());
             Assert.Multiple(() =>
             {
                 // Assert
@@ -38,8 +38,8 @@ namespace Api.Test.Domain.ClientTest
 
 
             // Act
-            var client = Client.CreateClient(name, phone, email);
-            client.AddAddres(city, addres, latidud, longitud);
+            var client = Client.CreateClient(name, phone, email, Guid.NewGuid());
+            client.AddAddres(city, addres, latidud, longitud, DateTime.Now.ToUniversalTime());
             // Assert
             Assert.Multiple(() =>
             {
@@ -63,7 +63,7 @@ namespace Api.Test.Domain.ClientTest
 
 
             // Act
-            var client = Client.CreateClient(name, phone, email);
+            var client = Client.CreateClient(name, phone, email, Guid.NewGuid());
             client.AddMedicalIllnesses(nameMedical, descriptionMedical, type);
             // Assert
             Assert.Multiple(() =>

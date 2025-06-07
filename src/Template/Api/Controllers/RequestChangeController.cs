@@ -15,7 +15,7 @@ namespace Template.Api.Controllers
         ///Cambio de fecha consulta medica
         ///</summary>
         [HttpPost()]
-        public Task<ActionResult<bool>> StoreAccout([FromBody] ModifiedRequestChangeCommand command) => SendRequest(command);
+        public Task<ActionResult<bool>> UpdateDateConsultationMedical([FromBody] ModifiedRequestChangeCommand command) => SendRequest(command);
 
     }
 }

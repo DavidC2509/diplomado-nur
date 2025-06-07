@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
+using System.Text.Json;
 
 #nullable disable
 
 namespace Template.Command.Migrations
 {
     /// <inheritdoc />
-    public partial class Inital : Migration
+    public partial class OutboxjsonElement : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,7 +16,7 @@ namespace Template.Command.Migrations
                 name: "Clients",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Phone = table.Column<string>(type: "text", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: false)
@@ -40,11 +42,29 @@ namespace Template.Command.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OutboxMessage",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    EventType = table.Column<string>(type: "text", nullable: false),
+                    EventVersion = table.Column<string>(type: "text", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Body = table.Column<JsonElement>(type: "jsonb", nullable: false),
+                    Sent = table.Column<bool>(type: "boolean", nullable: false),
+                    Source = table.Column<string>(type: "text", nullable: false),
+                    TimestampSend = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OutboxMessage", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RequestChangeHistorys",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
-                    IdAppointment = table.Column<Guid>(type: "uuid", nullable: false),
+                    AppointmentGuid = table.Column<Guid>(type: "uuid", nullable: false),
                     IdClient = table.Column<Guid>(type: "uuid", nullable: false),
                     PreviusDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     NewDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -65,6 +85,7 @@ namespace Template.Command.Migrations
                     Latituded = table.Column<decimal>(type: "numeric", nullable: false),
                     Longitud = table.Column<decimal>(type: "numeric", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
+                    DateDeliveryDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ClientId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -124,7 +145,7 @@ namespace Template.Command.Migrations
                 name: "AddressHistorys",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     IdDelivery = table.Column<Guid>(type: "uuid", nullable: false),
                     AddressId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -171,6 +192,9 @@ namespace Template.Command.Migrations
 
             migrationBuilder.DropTable(
                 name: "MedicalIllnessess");
+
+            migrationBuilder.DropTable(
+                name: "OutboxMessage");
 
             migrationBuilder.DropTable(
                 name: "RequestChangeHistorys");
