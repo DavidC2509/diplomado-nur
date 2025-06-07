@@ -22,7 +22,7 @@ namespace Template.Services.HandlerEvents
                 AddressGuid = notification.AddressGuid,
                 NewDate = notification.NewDate,
                 ClientGuid = notification.ClientGuid,
-                PreviusDate = notification.PreviusDate
+                PreviousDate = notification.PreviusDate
             };
 
             await _outbox.SaveAsync(integrationEvent, "DELIVERY_DATE_UPDATE", cancellationToken);

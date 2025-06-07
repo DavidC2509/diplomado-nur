@@ -1,6 +1,7 @@
 ﻿using Core.Cqrs.CommandAndQueryHandler;
 using Core.Cqrs.Domain.Repository;
 using Template.Domain.ClientAggregate;
+using Template.Domain.ClientAggregate.Specification;
 
 namespace Template.Services.Command.ClientCommand
 {
@@ -13,7 +14,8 @@ namespace Template.Services.Command.ClientCommand
 
         public async override Task<bool> Handle(ModifiedRequestChangeDeliveryCommand request, CancellationToken cancellationToken)
         {
-            var client = await _repository.GetByIdAsync(request.IdClient, cancellationToken);
+            var specClient = new GetClientByIdSpec(request.IdClient);
+            var client = await _repository.FirstOrDefaultAsync(specClient, cancellationToken);
             client?.UpdateDateAddres(request.AddresGuid, request.DateDelivery, request.IdClient);
             _repository.Update(client);
             await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
