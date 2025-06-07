@@ -13,7 +13,7 @@ using Template.Command.Database;
 namespace Template.Command.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20250607163225_OutboxjsonElement")]
+    [Migration("20250607192309_OutboxjsonElement")]
     partial class OutboxjsonElement
     {
         /// <inheritdoc />
@@ -86,8 +86,7 @@ namespace Template.Command.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasDefaultValueSql("gen_random_uuid()");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Email")
                         .IsRequired()

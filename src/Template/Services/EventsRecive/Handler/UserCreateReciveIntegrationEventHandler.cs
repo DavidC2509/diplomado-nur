@@ -26,7 +26,7 @@ namespace Template.Services.EventsRecive.Handler
 
             if (integrationEvent != null)
             {
-                var client = Client.CreateClient(integrationEvent.Body.FullName, "784512369", integrationEvent.Body.Email);
+                var client = Client.CreateClient(integrationEvent.Body.FullName, "784512369", integrationEvent.Body.Email, integrationEvent.Body.Id);
                 _userRepository.Add(client);
                 await _userRepository.UnitOfWork.SaveEntitiesAsync(CancellationToken.None);
             }

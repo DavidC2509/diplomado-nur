@@ -14,7 +14,7 @@ namespace Template.Services.Command.ClientCommand
         public async override Task<bool> Handle(StoreClientCommand request, CancellationToken cancellationToken)
         {
 
-            var client = Client.CreateClient(request.Name, request.Phone, request.Email);
+            var client = Client.CreateClient(request.Name, request.Phone, request.Email, Guid.NewGuid());
             _repository.Add(client);
             await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             return true;
