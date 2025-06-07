@@ -33,7 +33,7 @@ namespace Api.Test.Aplication
         public void Should_Map_Client_To_ClientModel()
         {
             // Arrange
-            var client = Client.CreateClient("David 2", "75324397112", "davidfernando.chavez777331@gmail.com");
+            var client = Client.CreateClient("David 2", "75324397112", "davidfernando.chavez777331@gmail.com", Guid.NewGuid());
 
             // Act
             var clientModel = _mapper.Map<ClientModel>(client);
