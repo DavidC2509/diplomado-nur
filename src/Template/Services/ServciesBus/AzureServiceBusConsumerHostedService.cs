@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Text;
 using Template.Domain.Interfaz.EventBus;
+using Template.Services.EventsRecive.Handler;
 
 namespace Template.Services.ServciesBus
 {
@@ -25,7 +26,7 @@ namespace Template.Services.ServciesBus
 
             var eventHubs = new List<(string EventHubName, Type HandlerType)>
             {
-                //("usert-create", typeof(UserCreateReciveIntegrationEventHandler)),
+                ("cateringhub", typeof(UserCreateReciveIntegrationEventHandler)),
             };
 
             var tasks = new List<Task>();
