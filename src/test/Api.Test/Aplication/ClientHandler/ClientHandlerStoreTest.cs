@@ -21,7 +21,7 @@ namespace Api.Test.Aplication.ClientHandler
             string name = "David 2";
             string phone = "75324397112";
             string email = "davidfernando.chavez777331@gmail.com";
-            var client = Client.CreateClient(name, phone, email);
+            var client = Client.CreateClient(name, phone, email, Guid.NewGuid());
 
             _repository.Setup(x => x.Add(client))
                          .Returns(client);
@@ -53,7 +53,7 @@ namespace Api.Test.Aplication.ClientHandler
             string name = "David331";
             string phone = "75324397123";
             string email = "davidfernando.chavez777321@gmail.com";
-            var client = Client.CreateClient(name, phone, email);
+            var client = Client.CreateClient(name, phone, email, Guid.NewGuid());
 
 
             _repository.Setup(x => x.GetByIdAsync(client.Id, tcs.Token))
@@ -92,7 +92,7 @@ namespace Api.Test.Aplication.ClientHandler
             string name = "David";
             string phone = "75324397";
             string email = "davidfernando.chavez777@gmail.com";
-            var client = Client.CreateClient(name, phone, email);
+            var client = Client.CreateClient(name, phone, email, Guid.NewGuid());
 
 
             _repository.Setup(x => x.GetByIdAsync(client.Id, tcs.Token))
