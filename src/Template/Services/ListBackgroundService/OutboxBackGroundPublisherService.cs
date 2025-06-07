@@ -28,7 +28,7 @@ namespace Template.Services.ListBackgroundService
                     {
                         string bodySend = JsonSerializer.Serialize(msg, new JsonSerializerOptions { WriteIndented = true });
 
-                        await _eventBus.SendMessageAsync(msg.EventType, bodySend);
+                        await _eventBus.SendMessageAsync("cateringhub", bodySend);
 
                         await _outboxService.MarkAsSentAsync(msg.Id, stoppingToken);
                     }
