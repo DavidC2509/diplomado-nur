@@ -48,7 +48,7 @@ namespace Template.Command.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     EventType = table.Column<string>(type: "text", nullable: false),
                     EventVersion = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Body = table.Column<JsonElement>(type: "jsonb", nullable: false),
                     Sent = table.Column<bool>(type: "boolean", nullable: false),
                     Source = table.Column<string>(type: "text", nullable: false),
@@ -64,7 +64,7 @@ namespace Template.Command.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
-                    IdAppointment = table.Column<Guid>(type: "uuid", nullable: false),
+                    AppointmentGuid = table.Column<Guid>(type: "uuid", nullable: false),
                     IdClient = table.Column<Guid>(type: "uuid", nullable: false),
                     PreviusDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     NewDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -85,6 +85,7 @@ namespace Template.Command.Migrations
                     Latituded = table.Column<decimal>(type: "numeric", nullable: false),
                     Longitud = table.Column<decimal>(type: "numeric", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
+                    DateDeliveryDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ClientId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -144,7 +145,7 @@ namespace Template.Command.Migrations
                 name: "AddressHistorys",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     IdDelivery = table.Column<Guid>(type: "uuid", nullable: false),
                     AddressId = table.Column<Guid>(type: "uuid", nullable: false)
                 },

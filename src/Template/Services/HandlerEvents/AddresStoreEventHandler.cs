@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Template.Domain.ClientAggregate.Events;
 using Template.Domain.Interfaz;
-using Template.Services.Models;
+using Template.Services.Models.EventsModels;
 
 namespace Template.Services.HandlerEvents
 {
@@ -21,12 +21,12 @@ namespace Template.Services.HandlerEvents
                 ClientGuid = domainEvent.ClientGuid,
                 Street = domainEvent.Street,
                 City = domainEvent.City,
-                Latituded = domainEvent.Latituded,
-                Longitud = domainEvent.Longitud,
-                AddresId = domainEvent.AddresId
+                Latitude = domainEvent.Latituded,
+                Longitude = domainEvent.Longitud,
+                AddressId = domainEvent.AddresId
             };
 
-            await _outbox.SaveAsync(integrationEvent, "user-addres-update", cancellationToken);
+            await _outbox.SaveAsync(integrationEvent, "USER_ADDRESS_UPDATE", cancellationToken);
         }
     }
 }

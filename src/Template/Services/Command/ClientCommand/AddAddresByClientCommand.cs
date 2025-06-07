@@ -9,6 +9,6 @@ namespace Template.Services.Command.ClientCommand
         public required string City { get; set; }
         public required decimal Latituded { get; set; }
         public required decimal Longitud { get; set; }
-
+        public DateTime DateDelivery { get; set; }
     }
 }

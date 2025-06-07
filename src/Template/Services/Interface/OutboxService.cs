@@ -36,7 +36,11 @@ namespace Template.Services.Interface
 
         public async Task SaveAsync<T>(T data, string eventType, CancellationToken cancellationToken)
         {
-            var json = JsonSerializer.SerializeToElement(data);
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+            var json = JsonSerializer.SerializeToElement(data, options);
             var outbox = OutboxMessage.StoreOutbox(eventType, json);
             _repository.Add(outbox);
             await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);

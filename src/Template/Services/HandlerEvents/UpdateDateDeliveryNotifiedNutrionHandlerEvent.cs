@@ -1,31 +1,31 @@
 ﻿using MediatR;
+using Template.Domain.ClientAggregate.Events;
 using Template.Domain.Interfaz;
-using Template.Domain.RequestChangeAggregate.Events;
-using Template.Services.Models;
+using Template.Services.Models.EventsModels;
 
 namespace Template.Services.HandlerEvents
 {
-    public class UpdateDateDeliveryNotifiedNutrionHandlerEvent : INotificationHandler<UpdateDateDeliveryNotifiedNutrionEvent>
+    public class UpdateDateDeliveryHandlerEvent : INotificationHandler<UpdateDateDeliveryEvent>
     {
 
         private readonly IOutboxService _outbox;
 
-        public UpdateDateDeliveryNotifiedNutrionHandlerEvent(IOutboxService outbox)
+        public UpdateDateDeliveryHandlerEvent(IOutboxService outbox)
         {
             _outbox = outbox;
         }
 
-        public async Task Handle(UpdateDateDeliveryNotifiedNutrionEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(UpdateDateDeliveryEvent notification, CancellationToken cancellationToken)
         {
             var integrationEvent = new UpdateDeliveryDateEvent
             {
-                AddresGuid = notification.AddresGuid,
+                AddressGuid = notification.AddressGuid,
                 NewDate = notification.NewDate,
-                IdClient = notification.ClientId,
-                PreviusDate = notification.PreviusDate
+                ClientGuid = notification.ClientGuid,
+                PreviousDate = notification.PreviusDate
             };
 
-            await _outbox.SaveAsync(integrationEvent, "delevery-date-update", cancellationToken);
+            await _outbox.SaveAsync(integrationEvent, "DELIVERY_DATE_UPDATE", cancellationToken);
 
         }
     }

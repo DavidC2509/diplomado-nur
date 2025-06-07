@@ -19,7 +19,7 @@ namespace Api.Test.Domain.RequestChangeTest
             {
                 // Assert
                 Assert.That(requestChange.IdClient, Is.EqualTo(idClient));
-                Assert.That(requestChange.IdAppointment, Is.EqualTo(idAppointment));
+                Assert.That(requestChange.AppointmentGuid, Is.EqualTo(idAppointment));
                 Assert.That(requestChange.NewDate, Is.EqualTo(newDate));
                 Assert.That(requestChange.PreviusDate, Is.EqualTo(previusDate));
 

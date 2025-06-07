@@ -28,7 +28,7 @@ namespace Template.Api.Controllers
         ///<summary>
         ///Agregar Direccion
         ///</summary>
-        [HttpPost("addres")]
+        [HttpPost("address")]
         public Task<ActionResult<bool>> AddAddresClient([FromBody] AddAddresByClientCommand command) => SendRequest(command);
 
         ///<summary>
@@ -37,12 +37,12 @@ namespace Template.Api.Controllers
         [HttpPost("medical-illneses")]
         public Task<ActionResult<bool>> AddMedicalIllneses([FromBody] AddMedicalIllnessesCommand command) => SendRequest(command);
 
-
         ///<summary>
-        ///Cambia fecha del delivery
+        ///Cambio de fecha de delivery
         ///</summary>
-        [HttpPost("update-date-delivery")]
-        public Task<ActionResult<bool>> UpdateDateDelivery([FromBody] AddAddresByClientCommand command) => SendRequest(command);
+        [HttpPost("addres/update-date")]
+        public Task<ActionResult<bool>> UpdateDateDelivery([FromBody] ModifiedRequestChangeDeliveryCommand command) => SendRequest(command);
+
 
     }
 }

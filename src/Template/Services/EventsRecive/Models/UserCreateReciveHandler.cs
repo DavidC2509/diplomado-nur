@@ -1,4 +1,4 @@
-﻿namespace Template.Services.EventsRecive
+﻿namespace Template.Services.EventsRecive.Models
 {
     public class UserCreateReciveHandler
     {

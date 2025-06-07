@@ -8,7 +8,7 @@ namespace Template.Domain.OutboxAggregate
     {
         public string EventType { get; set; }
         public string EventVersion { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime Timestamp { get; set; }
         public JsonElement Body { get; set; }
         public bool Sent { get; set; } = false;
         public string Source { get; set; }
@@ -18,7 +18,7 @@ namespace Template.Domain.OutboxAggregate
         {
             EventType = string.Empty;
             Source = string.Empty;
-            CreatedAt = DateTime.Now.ToUniversalTime();
+            Timestamp = DateTime.Now.ToUniversalTime();
             EventVersion = string.Empty;
             Sent = false;
         }
@@ -29,6 +29,7 @@ namespace Template.Domain.OutboxAggregate
             EventVersion = "1.0.0";
             Body = body;
             Source = "medical_consultation";
+            Timestamp = DateTime.Now.ToUniversalTime();
         }
 
         public static OutboxMessage StoreOutbox(string eventType, JsonElement body)

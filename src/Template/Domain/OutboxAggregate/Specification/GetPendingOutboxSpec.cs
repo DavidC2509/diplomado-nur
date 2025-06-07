@@ -8,7 +8,7 @@ namespace Template.Domain.OutboxAggregate.Specification
         {
             Query
                  .Where(x => !x.Sent)
-                    .OrderBy(x => x.CreatedAt);
+                    .OrderBy(x => x.Timestamp);
         }
     }
 }
