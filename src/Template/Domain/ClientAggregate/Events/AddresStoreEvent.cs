@@ -10,8 +10,10 @@ namespace Template.Domain.ClientAggregate.Events
         public string City { get; }
         public decimal Latituded { get; }
         public decimal Longitud { get; }
+        public Guid AddresId { get; }
 
-        public AddresStoreEvent(Guid clientGuid, string street, string city, decimal latituded, decimal longitud)
+
+        public AddresStoreEvent(Guid clientGuid, string street, string city, decimal latituded, decimal longitud, Guid addresId)
         {
             ClientGuid = clientGuid;
             OccurredOn = DateTime.Now;
@@ -19,6 +21,7 @@ namespace Template.Domain.ClientAggregate.Events
             City = city;
             Latituded = latituded;
             Longitud = longitud;
+            AddresId = addresId;
         }
     }
 }

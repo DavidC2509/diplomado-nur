@@ -5,12 +5,12 @@ using Template.Services.Models;
 
 namespace Template.Services.HandlerEvents
 {
-    public class NotifiedNutrionEventHandler : INotificationHandler<UpdateDateDeliveryNotifiedNutrionEvent>
+    public class UpdateDateDeliveryNotifiedNutrionHandlerEvent : INotificationHandler<UpdateDateDeliveryNotifiedNutrionEvent>
     {
 
         private readonly IOutboxService _outbox;
 
-        public NotifiedNutrionEventHandler(IOutboxService outbox)
+        public UpdateDateDeliveryNotifiedNutrionHandlerEvent(IOutboxService outbox)
         {
             _outbox = outbox;
         }

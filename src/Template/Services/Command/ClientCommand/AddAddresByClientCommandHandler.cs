@@ -14,8 +14,10 @@ namespace Template.Services.Command.ClientCommand
         public async override Task<bool> Handle(AddAddresByClientCommand request, CancellationToken cancellationToken)
         {
             var client = await _repository.GetByIdAsync(request.IdClient, cancellationToken);
-            client.AddAddres(request.Street, request.City, request.Longitud, request.Latituded, client.Id);
+            client.AddAddres(request.Street, request.City, request.Longitud, request.Latituded);
             _repository.Update(client);
+            await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            client.NotificacionAddres(client.Id);
             await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             return true;
         }

@@ -32,19 +32,17 @@ namespace Template.Domain.ClientAggregate
             _history = [];
         }
 
-        internal Address(string street, string city, decimal latituded, decimal longitud, Guid clientGuid) : this()
+        internal Address(string street, string city, decimal latituded, decimal longitud) : this()
         {
             Street = street;
             City = city;
             Latituded = latituded;
             Longitud = longitud;
             Status = true;
-            NotificationEvent(clientGuid);
-
         }
 
-        public static Address StoreAddres(string street, string city, decimal latituded, decimal longitud, Guid clientGuid)
-        => new(street, city, latituded, longitud, clientGuid);
+        public static Address StoreAddres(string street, string city, decimal latituded, decimal longitud)
+        => new(street, city, latituded, longitud);
 
         public void UpdateStatus(bool status)
         {
@@ -53,7 +51,7 @@ namespace Template.Domain.ClientAggregate
 
         public void NotificationEvent(Guid clientGuid)
         {
-            var eventAddres = new AddresStoreEvent(clientGuid, Street, City, Latituded, Longitud);
+            var eventAddres = new AddresStoreEvent(clientGuid, Street, City, Latituded, Longitud, Id);
             _domainEvents.Add(eventAddres);
         }
 
