@@ -13,7 +13,6 @@ namespace Template.Domain.RequestChangeAggregate
         public DateTime NewDate { get; private set; }
         public DateTime RegisterDate { get; private set; }
 
-
         public IReadOnlyCollection<INotification> DomainEvents => _domainEvents.AsReadOnly();
         private readonly List<INotification> _domainEvents = [];
 

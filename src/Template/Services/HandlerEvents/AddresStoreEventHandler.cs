@@ -23,6 +23,7 @@ namespace Template.Services.HandlerEvents
                 City = domainEvent.City,
                 Latituded = domainEvent.Latituded,
                 Longitud = domainEvent.Longitud,
+                AddresId = domainEvent.AddresId
             };
 
             await _outbox.SaveAsync(integrationEvent, "user-addres-update", cancellationToken);

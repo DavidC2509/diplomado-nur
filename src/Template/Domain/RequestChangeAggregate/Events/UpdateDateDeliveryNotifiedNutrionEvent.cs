@@ -14,6 +14,7 @@ namespace Template.Domain.RequestChangeAggregate.Events
             ClientId = clientId;
             PreviusDate = previusDate;
             NewDate = newDate;
+            AddresGuid = Guid.NewGuid();
         }
     }
 }
