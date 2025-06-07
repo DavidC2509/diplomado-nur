@@ -8,6 +8,7 @@ namespace Template.Domain.ClientAggregate
     {
         public string Name { get; private set; }
         public string? Phone { get; private set; }
+
         public EmailValueObject Email { get; private set; }
 
         private readonly List<Address> _addresses;
@@ -24,16 +25,17 @@ namespace Template.Domain.ClientAggregate
             Email = new EmailValueObject();
         }
 
-        internal Client(string name, string phone, string email) : this()
+        internal Client(string name, string phone, string email, Guid id) : this()
         {
             Name = name;
             Phone = phone;
             EmailValueObject emailObject = EmailValueObject.Create(email);
             Email = emailObject;
+            Id = id;
         }
 
-        public static Client CreateClient(string name, string phone, string email)
-            => new(name, phone, email);
+        public static Client CreateClient(string name, string phone, string email, Guid clientGuid)
+            => new(name, phone, email, clientGuid);
 
         public void AddAddres(string street, string city, decimal latituded, decimal longitud, DateTime deliveryDate)
         {
