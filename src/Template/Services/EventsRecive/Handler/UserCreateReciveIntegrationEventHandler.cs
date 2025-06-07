@@ -3,6 +3,7 @@ using Core.Cqrs.Domain.Repository;
 using System.Text.Json;
 using Template.Domain.ClientAggregate;
 using Template.Domain.Interfaz.EventBus;
+using Template.Services.EventsRecive.Models;
 
 namespace Template.Services.EventsRecive.Handler
 {

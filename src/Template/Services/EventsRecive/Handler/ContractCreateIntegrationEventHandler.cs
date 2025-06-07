@@ -1,6 +1,7 @@
 ﻿using Azure.Messaging.EventHubs.Processor;
 using System.Text.Json;
 using Template.Domain.Interfaz.EventBus;
+using Template.Services.EventsRecive.Models;
 
 namespace Template.Services.EventsRecive.Handler
 {
@@ -8,7 +9,7 @@ namespace Template.Services.EventsRecive.Handler
     {
         public async Task MessageHandler(string message)
         {
-            var integrationEvent = JsonSerializer.Deserialize<ModelReciveData<UserCreateReciveHandler>>(message);
+            var integrationEvent = JsonSerializer.Deserialize<ModelReciveData<ContracRecieveHandler>>(message);
 
             Console.WriteLine($"📥 Mensaje recibido desde EventHub: {integrationEvent?.Source}, {integrationEvent?.EventType}");
 
