@@ -31,4 +31,4 @@ namespace Api.Test.Domain.Specifications
             Assert.That(spec, Is.Not.Null);
         }
     }
-} 
+}

@@ -40,7 +40,7 @@ namespace Api.Test.Aplication.EventHandlers
 
             // Assert
             _outboxService.Verify(x => x.SaveAsync(
-                It.Is<AddressStoredIntegrationEvent>(e => 
+                It.Is<AddressStoredIntegrationEvent>(e =>
                     e.ClientGuid == clientId &&
                     e.AddressId == addressId &&
                     e.Street == "Av. 6 de Agosto" &&
@@ -51,4 +51,4 @@ namespace Api.Test.Aplication.EventHandlers
                 It.IsAny<CancellationToken>()), Times.Once);
         }
     }
-} 
+}
