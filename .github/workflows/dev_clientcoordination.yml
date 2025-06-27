@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read #This is required for actions/checkout
 
@@ -22,21 +22,19 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
-
       - name: Restore
-        run: dotnet restore
-
+        run: dotnet restore src/Template/Api
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build src/Template/Api --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
-
+        run: dotnet publish src/Template/Api --configuration Release --no-build --output src/Template/Api/publishAdd commentMore actions
+        
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: src/Template/Api/publish
 
   deploy:
     runs-on: windows-latest
