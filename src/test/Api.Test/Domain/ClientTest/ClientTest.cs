@@ -2,7 +2,7 @@
 
 namespace Api.Test.Domain.ClientTest
 {
-    internal class ClientTest
+    public class ClientTest
     {
         [Test]
         public void ClientCreationIsValid()

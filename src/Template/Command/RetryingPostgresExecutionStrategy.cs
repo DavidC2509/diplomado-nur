@@ -12,18 +12,18 @@ namespace Template.Command
 
         protected override bool ShouldRetryOn(Exception exception)
         {
-            if (exception is PostgresException postgresException)
+            if (exception is NpgsqlException postgresEx)
             {
-                if (postgresException.IsTransient)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
+                // Ejemplo: reintentar si es un error de timeout o de conexión transitoria
+                return postgresEx.IsTransient;
             }
-            return ShouldRetryOn(exception);
+
+            if (exception is TimeoutException)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

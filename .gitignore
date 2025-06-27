@@ -396,3 +396,22 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# JetBrains Rider
+*.sln.iml
+
+# Application Settings - Ignore sensitive configuration files
+appsettings.json
+appsettings.*.json
+!appsettings.Example.json
+!appsettings.Template.json
+
+# Connection strings and secrets
+connectionstrings.json
+secrets.json
+*.secrets.json
+
+# Environment-specific settings
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json

@@ -18,7 +18,7 @@ builder.ConfigureContainer(new AutofacServiceProviderFactory(), containerBuilder
 {
     containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
 });
-builder.Services.AddDbContext("");
+builder.Services.AddDbContext(builder.Configuration.GetConnectionString("nutri-solid-database")!);
 
 builder.EnrichNpgsqlDbContext<DataBaseContext>(settings =>
 // Disable Aspire default retries as we're using a custom execution strategy
