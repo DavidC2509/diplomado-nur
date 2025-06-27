@@ -1,6 +1,5 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Template.Api.BackgroundsServices;
 using Template.Api.Extensions;
 using Template.Command;
 using Template.Command.Database;
@@ -16,7 +15,7 @@ builder.Services.ConfigureResponseCaching();
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.AddNpgsqlDbContext<DataBaseContext>("nutri_solid_database");
+builder.AddNpgsqlDbContext<DataBaseContext>("nutri-solid-database");
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -24,8 +23,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApplication(builder.Configuration);
 
 //Background service
-builder.Services.AddHostedService<AzureEventHubConsumerHostedService>();
-builder.Services.AddHostedService<OutboxPublisherService>();
+//builder.Services.AddHostedService<AzureEventHubConsumerHostedService>();
+//builder.Services.AddHostedService<OutboxPublisherService>();
 
 
 builder.Services.AddCors(options =>

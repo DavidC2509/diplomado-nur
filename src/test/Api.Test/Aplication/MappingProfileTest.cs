@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Template.Domain.ClientAggregate;
+using Template.Domain.MedicalConsultationAggregate;
 using Template.Services.Mapper;
 using Template.Services.Models;
 
@@ -59,6 +60,70 @@ namespace Api.Test.Aplication
             Assert.That(addressModel.City, Is.EqualTo(address.City));
             Assert.That(addressModel.Latituded, Is.EqualTo(address.Latituded));
             Assert.That(addressModel.Longitud, Is.EqualTo(address.Longitud));
+        }
+
+        [Test]
+        public void Should_Map_Consultation_To_MedicalConsultModel()
+        {
+            // Arrange
+            var consultation = Consultation.CreateConsult("Consulta Test", Guid.NewGuid(), Guid.NewGuid(), true);
+
+            // Act
+            var consultationModel = _mapper.Map<MedicalConsultModel>(consultation);
+
+            // Assert
+            Assert.IsNotNull(consultationModel);
+            Assert.That(consultationModel.Descripcion, Is.EqualTo(consultation.Descripcion));
+            Assert.That(consultationModel.IdClient, Is.EqualTo(consultation.IdClient));
+            Assert.That(consultationModel.Status, Is.EqualTo(consultation.Status));
+        }
+
+        [Test]
+        public void Should_Map_Client_With_Addresses_To_ClientModel()
+        {
+            // Arrange
+            var client = Client.CreateClient("David 3", "75324397113", "david3@test.com", Guid.NewGuid());
+            client.AddAddres("Street 2", "City 2", 15.0m, 25.0m, DateTime.Now.ToUniversalTime());
+
+            // Act
+            var clientModel = _mapper.Map<ClientModel>(client);
+
+            // Assert
+            Assert.IsNotNull(clientModel);
+            Assert.That(clientModel.Name, Is.EqualTo(client.Name));
+            Assert.That(clientModel.Phone, Is.EqualTo(client.Phone));
+            Assert.That(clientModel.Addresses, Is.Not.Null);
+            Assert.That(clientModel.Addresses.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Should_Map_Empty_Client_To_ClientModel()
+        {
+            // Arrange
+            var client = Client.CreateClient("dav", "332131", "papapote3@gmail.com", Guid.NewGuid());
+
+            // Act
+            var clientModel = _mapper.Map<ClientModel>(client);
+
+            // Assert
+            Assert.IsNotNull(clientModel);
+            Assert.That(clientModel.Name, Is.EqualTo(client.Name));
+            Assert.That(clientModel.Phone, Is.EqualTo(client.Phone));
+        }
+
+        [Test]
+        public void Should_Map_Consultation_With_InactiveStatus_To_MedicalConsultModel()
+        {
+            // Arrange
+            var consultation = Consultation.CreateConsult("Consulta Inactiva", Guid.NewGuid(), Guid.NewGuid(), false);
+
+            // Act
+            var consultationModel = _mapper.Map<MedicalConsultModel>(consultation);
+
+            // Assert
+            Assert.IsNotNull(consultationModel);
+            Assert.That(consultationModel.Descripcion, Is.EqualTo(consultation.Descripcion));
+            Assert.That(consultationModel.Status, Is.EqualTo(consultation.Status));
         }
     }
 }

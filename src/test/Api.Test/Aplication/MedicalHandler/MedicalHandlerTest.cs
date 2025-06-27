@@ -7,8 +7,8 @@ namespace Api.Test.Aplication.MedicalHandler
 {
     class MedicalHandlerTest
     {
-
         private readonly Mock<IRepository<Consultation>> _repository;
+
         public MedicalHandlerTest()
         {
             _repository = new Mock<IRepository<Consultation>>();
@@ -24,7 +24,6 @@ namespace Api.Test.Aplication.MedicalHandler
             Guid idClient = Guid.NewGuid();
 
             var consultation = Consultation.CreateConsult(name, idConsultExternal, idClient, true);
-
 
             _repository.Setup(x => x.Add(consultation))
                          .Returns(consultation);
@@ -47,7 +46,8 @@ namespace Api.Test.Aplication.MedicalHandler
             // Assert
             _repository.Verify(x => x.Add(It.IsAny<Consultation>()), Times.Once);
             _repository.Verify(x => x.UnitOfWork.SaveEntitiesAsync(tcs.Token), Times.Once);
-
         }
+
+
     }
 }
