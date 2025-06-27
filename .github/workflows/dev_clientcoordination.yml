@@ -28,8 +28,8 @@ jobs:
         run: dotnet build src/Template/Api --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish src/Template/Api --configuration Release --no-build --output src/Template/Api/publishAdd commentMore actions
-        
+        run: dotnet publish src/Template/Api --configuration Release --no-build --output src/Template/Api/publish
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
