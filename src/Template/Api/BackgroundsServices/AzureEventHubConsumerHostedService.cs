@@ -30,7 +30,7 @@ namespace Template.Api.BackgroundsServices
 
             var tasks = new List<Task>
                 {
-                    Task.Run(() => StartListening("cateringhub", consumerGroup, settings.ConnectionString, stoppingToken), stoppingToken)
+                    Task.Run(() => StartListening("nutrinur", consumerGroup, settings.ConnectionString, stoppingToken), stoppingToken)
                 };
 
             await Task.WhenAll(tasks);
