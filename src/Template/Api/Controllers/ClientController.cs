@@ -20,7 +20,7 @@ namespace Template.Api.Controllers
         public Task<ActionResult<IEnumerable<ClientModel>>> ListClient() => SendRequest(new ListClientQuery());
 
         ///<summary>
-        ///Obtener Cliente
+        ///Obtener Cliente por id
         ///</summary>
         [HttpGet("{id}")]
         public Task<ActionResult<ClientModel>> GetClient(Guid id) => SendRequest(new GetClientQuery(id));
