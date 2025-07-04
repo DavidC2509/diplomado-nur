@@ -41,7 +41,7 @@ namespace Template.Api.BackgroundsServices
                                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                             });
 
-                            await _eventBus.SendMessageAsync("cateringhub", bodySend);
+                            await _eventBus.SendMessageAsync("nutrinur", bodySend);
 
                             await _outboxService.MarkAsSentAsync(msg.Id, stoppingToken);
                             _logger.LogInformation("Mensaje con ID {MessageId} enviado y marcado como enviado.", msg.Id);
