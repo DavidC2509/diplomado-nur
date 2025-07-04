@@ -40,7 +40,7 @@ namespace Template.Domain.ClientAggregate
             City = city;
             Latituded = latituded;
             Longitud = longitud;
-            DateDeliveryDate = dateDeliveryDate;
+            DateDeliveryDate = dateDeliveryDate.ToUniversalTime();
             Status = true;
         }
 

@@ -18,4 +18,3 @@ namespace Template.Api.Extensions
         }
     }
 }
-
