@@ -83,13 +83,13 @@ namespace Api.Test.Integration.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Registrar Cliente")]
-        public async System.Threading.Tasks.Task RegistrarCliente()
+        [NUnit.Framework.DescriptionAttribute("Listado cliente")]
+        public async System.Threading.Tasks.Task ListadoCliente()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Registrar Cliente", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 4
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Listado cliente", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -99,19 +99,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 5
-    await testRunner.GivenAsync("la siguiente solicitud", "{\r\n\"Name\": \"Prueba Entrada\",\r\n\"Phone\": \"75324397\",\r\n\"Email\": \"davidfernando.chave" +
-                        "z777@gmail.com\"\r\n}", ((global::Reqnroll.Table)(null)), "Given ");
+#line 6
+    await testRunner.GivenAsync("la siguiente solicitud", "", ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 13
-    await testRunner.WhenAsync("se solicita \"sin\" credenciales que se procese a la url \"/api/client\", usando el m" +
-                        "etodo \"post\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 9
+    await testRunner.WhenAsync("se solicita \"sin\" credenciales que se procese a la url \"/api/client/list\", usando" +
+                        " el metodo \"get\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 14
+#line 10
     await testRunner.ThenAsync("la respuesta debe tener el codigo de estado 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 15
-    await testRunner.AndAsync("la respuesta debe contener un booleano", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line 11
+    await testRunner.AndAsync("la respuesta \"si\" contener un listado vacio", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

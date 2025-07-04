@@ -8,37 +8,59 @@ namespace Template.Api.BackgroundsServices
     {
         private readonly IEventBusService _eventBus;
         private readonly IOutboxService _outboxService;
+        private readonly ILogger<OutboxPublisherService> _logger;
 
-        public OutboxPublisherService(IEventBusService eventBus, IOutboxService outboxService)
+        public OutboxPublisherService(
+            IEventBusService eventBus,
+            IOutboxService outboxService,
+            ILogger<OutboxPublisherService> logger)
         {
             _eventBus = eventBus;
             _outboxService = outboxService;
+            _logger = logger;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            _logger.LogInformation("OutboxPublisherService iniciado.");
+
             while (!stoppingToken.IsCancellationRequested)
             {
-                var pending = await _outboxService.GetPendingAsync(stoppingToken);
-
-                foreach (var msg in pending)
+                try
                 {
-                    try
-                    {
-                        string bodySend = JsonSerializer.Serialize(msg, new JsonSerializerOptions { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+                    var pending = await _outboxService.GetPendingAsync(stoppingToken);
+                    _logger.LogInformation("Se encontraron {Count} mensajes pendientes para enviar.", pending.Count());
 
-                        await _eventBus.SendMessageAsync("cateringhub", bodySend);
-
-                        await _outboxService.MarkAsSentAsync(msg.Id, stoppingToken);
-                    }
-                    catch (Exception ex)
+                    foreach (var msg in pending)
                     {
-                        Console.WriteLine(ex.Message);
+                        try
+                        {
+                            var bodySend = JsonSerializer.Serialize(msg, new JsonSerializerOptions
+                            {
+                                WriteIndented = true,
+                                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                            });
+
+                            await _eventBus.SendMessageAsync("cateringhub", bodySend);
+
+                            await _outboxService.MarkAsSentAsync(msg.Id, stoppingToken);
+                            _logger.LogInformation("Mensaje con ID {MessageId} enviado y marcado como enviado.", msg.Id);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "Error al enviar el mensaje con ID {MessageId}", msg.Id);
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error al obtener o procesar los mensajes pendientes.");
+                }
 
-                await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken); // delay entre ciclos
+                await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
             }
+
+            _logger.LogInformation("OutboxPublisherService detenido.");
         }
     }
 }

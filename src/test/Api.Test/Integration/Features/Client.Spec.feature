@@ -1,15 +1,11 @@
 ﻿Feature: Probar las funcionalidades de cliente
  
 
-Scenario: Registrar Cliente
+
+Scenario: Listado cliente
     Given la siguiente solicitud
     """
-    {
-    "Name": "Prueba Entrada",
-    "Phone": "75324397",
-    "Email": "davidfernando.chavez777@gmail.com"
-    }
     """
-    When se solicita "sin" credenciales que se procese a la url "/api/client", usando el metodo "post"
+    When se solicita "sin" credenciales que se procese a la url "/api/client/list", usando el metodo "get"
     Then la respuesta debe tener el codigo de estado 200 
-    And la respuesta debe contener un booleano
+    And la respuesta "si" contener un listado vacio

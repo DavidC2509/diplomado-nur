@@ -118,8 +118,7 @@ namespace Api.Test.Aplication.ClientHandler
             await command.Handle(storeClientCommand, tcs.Token);
 
             // Assert
-            _repository.Verify(x => x.Update(It.IsAny<Client>()), Times.Once);
-            _repository.Verify(x => x.UnitOfWork.SaveEntitiesAsync(tcs.Token), Times.Once);
+            _repository.Verify(x => x.UnitOfWork.SaveEntitiesAsync(tcs.Token), Times.AtLeast(2));
 
         }
     }

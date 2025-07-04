@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.ApplicationInsights.Extensibility;
 using Template.Api.BackgroundsServices;
 using Template.Api.Extensions;
 using Template.Command;
@@ -10,10 +11,10 @@ using Template.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddApplicationInsightsTelemetry();
 builder.AddServiceDefaults();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Services.ConfigureResponseCaching();
-
 // Add services to the container.
 builder.Services.AddControllers();
 builder.AddNpgsqlDbContext<DataBaseContext>("nutri_solid_database");
@@ -42,11 +43,14 @@ builder.ConfigureSwagger();
 // The following line enables Application Insights telemetry collection.
 builder.Services.AddApplicationInsightsTelemetry();
 
+builder.Services.AddSingleton<ITelemetryInitializer>(new RoleNameTelemetryInitializer("Coordinacion-BackEnd-Catering"));
 
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
     containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
 });
+
+
 
 var app = builder.Build();
 
