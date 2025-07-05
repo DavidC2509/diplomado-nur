@@ -13,6 +13,8 @@ namespace Template.Domain.ClientAggregate
         public decimal Longitud { get; private set; }
         public bool Status { get; private set; }
         public DateTime DateDeliveryDate { get; private set; }
+        public DateTime? DateToDeliveryIgnore { get; private set; }
+        public DateTime? DateFromDeliveryIgnore { get; private set; }
 
         private readonly List<AddressHistory> _history;
         public IEnumerable<AddressHistory> History => _history.AsReadOnly();
@@ -52,12 +54,15 @@ namespace Template.Domain.ClientAggregate
             Status = status;
         }
 
-        public void UpdateDateDelivery(DateTime dateDeliveryDate, Guid clientGuid)
+        public void UpdateDateBlockDelivery(DateTime toDate, DateTime fromDate, Guid clientGuid)
         {
-            var eventAddres = new UpdateDateDeliveryEvent(clientGuid, DateDeliveryDate, dateDeliveryDate, Id);
-            DateDeliveryDate = dateDeliveryDate;
+            var eventAddres = new UpdateDateBlockDeliveryEvent(clientGuid, toDate, fromDate, Id);
+            DateDeliveryDate = toDate;
+            DateToDeliveryIgnore = toDate;
+            DateFromDeliveryIgnore = fromDate;
             _domainEvents.Add(eventAddres);
         }
+
 
         public void NotificationEvent(Guid clientGuid)
         {

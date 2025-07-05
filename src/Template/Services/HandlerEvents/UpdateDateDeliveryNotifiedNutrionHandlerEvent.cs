@@ -5,27 +5,27 @@ using Template.Services.Models.EventsModels;
 
 namespace Template.Services.HandlerEvents
 {
-    public class UpdateDateDeliveryHandlerEvent : INotificationHandler<UpdateDateDeliveryEvent>
+    public class UpdateDateBlockDeliveryHandlerEvent : INotificationHandler<UpdateDateBlockDeliveryEvent>
     {
 
         private readonly IOutboxService _outbox;
 
-        public UpdateDateDeliveryHandlerEvent(IOutboxService outbox)
+        public UpdateDateBlockDeliveryHandlerEvent(IOutboxService outbox)
         {
             _outbox = outbox;
         }
 
-        public async Task Handle(UpdateDateDeliveryEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(UpdateDateBlockDeliveryEvent notification, CancellationToken cancellationToken)
         {
-            var integrationEvent = new UpdateDeliveryDateEvent
+            var integrationEvent = new UpdateDeliveryBlockDateEvent
             {
                 AddressGuid = notification.AddressGuid,
-                NewDate = notification.NewDate,
+                ToDate = notification.NewDate,
                 ClientGuid = notification.ClientGuid,
-                PreviousDate = notification.PreviusDate
+                FromDate = notification.PreviusDate
             };
 
-            await _outbox.SaveAsync(integrationEvent, "DELIVERY_DATE_UPDATE", cancellationToken);
+            await _outbox.SaveAsync(integrationEvent, "DELIVERY_DATE_BLOCK_UPDATE", cancellationToken);
 
         }
     }

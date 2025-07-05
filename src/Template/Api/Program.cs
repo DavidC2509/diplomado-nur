@@ -16,8 +16,6 @@ builder.AddServiceDefaults();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Services.ConfigureResponseCaching();
 // Add services        builder.Services.AddApplicationInsightsTelemetry();
-builder.Services.AddApplicationInsightsTelemetry();
-
 builder.Services.AddControllers();
 builder.AddNpgsqlDbContext<DataBaseContext>("nutri_solid_database");
 
