@@ -1,4 +1,5 @@
 ﻿using Core.Cqrs.Domain.Repository;
+using System.Diagnostics;
 using System.Text.Json;
 using Template.Domain.Interfaz;
 using Template.Domain.OutboxAggregate;
@@ -41,7 +42,10 @@ namespace Template.Services.Interface
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
             var json = JsonSerializer.SerializeToElement(data, options);
-            var outbox = OutboxMessage.StoreOutbox(eventType, json);
+
+            var traceId = Activity.Current?.Id ?? Guid.NewGuid().ToString();
+
+            var outbox = OutboxMessage.StoreOutbox(eventType, json, traceId);
             _repository.Add(outbox);
             await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         }

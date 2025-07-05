@@ -13,6 +13,7 @@ namespace Template.Domain.OutboxAggregate
         public bool Sent { get; set; } = false;
         public string Source { get; set; }
         public DateTime? TimestampSend { get; set; }
+        public string TraceId { get; set; }
 
         private OutboxMessage()
         {
@@ -21,19 +22,22 @@ namespace Template.Domain.OutboxAggregate
             Timestamp = DateTime.Now.ToUniversalTime();
             EventVersion = string.Empty;
             Sent = false;
+            TraceId = string.Empty;
         }
 
-        internal OutboxMessage(string eventType, JsonElement body)
+        internal OutboxMessage(string eventType, JsonElement body, string traceId)
         {
             EventType = eventType;
             EventVersion = "1.0.0";
             Body = body;
             Source = "medical_consultation";
             Timestamp = DateTime.Now.ToUniversalTime();
+            Sent = false;
+            TraceId = traceId;
         }
 
-        public static OutboxMessage StoreOutbox(string eventType, JsonElement body)
-            => new(eventType, body);
+        public static OutboxMessage StoreOutbox(string eventType, JsonElement body, string traceId)
+            => new(eventType, body, traceId);
 
         public void UpdateSendOutbox()
         {

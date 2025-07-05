@@ -36,7 +36,7 @@ namespace Api.Test.Aplication.BackgroundServices
 
             var pendingMessages = new List<OutboxMessage>
             {
-                 OutboxMessage.StoreOutbox("TestEvent",json)
+                 OutboxMessage.StoreOutbox("TestEvent",json,Guid.NewGuid().ToString())
 
             };
 
