@@ -41,9 +41,9 @@ namespace Template.Domain.ClientAggregate
             _addresses.Add(Address.StoreAddres(street, city, latituded, longitud, deliveryDate));
         }
 
-        public void UpdateDateAddres(Guid addresGuid, DateTime deliveryDate, Guid clientGuid)
+        public void UpdateDateAddres(Guid addresGuid, DateTime toDate, DateTime fromDate, Guid clientGuid)
         {
-            _addresses.Find(address => address.Id == addresGuid)?.UpdateDateDelivery(deliveryDate, clientGuid);
+            _addresses.Find(address => address.Id == addresGuid)?.UpdateDateBlockDelivery(toDate, fromDate, clientGuid);
         }
 
         public void AddMedicalIllnesses(string name, string descripcion, string type)

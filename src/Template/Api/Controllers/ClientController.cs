@@ -38,10 +38,10 @@ namespace Template.Api.Controllers
         public Task<ActionResult<bool>> AddMedicalIllneses([FromBody] AddMedicalIllnessesCommand command) => SendRequest(command);
 
         ///<summary>
-        ///Cambio de fecha de delivery
+        ///Cambio de fecha de bloqueo delivery
         ///</summary>
-        [HttpPost("addres/update-date")]
-        public Task<ActionResult<bool>> UpdateDateDelivery([FromBody] ModifiedRequestChangeDeliveryCommand command) => SendRequest(command);
+        [HttpPost("addres/update-bloc-date")]
+        public Task<ActionResult<bool>> UpdateBlockDateDelivery([FromBody] ModifiedRequestChangeDeliveryBlockCommand command) => SendRequest(command);
 
 
     }

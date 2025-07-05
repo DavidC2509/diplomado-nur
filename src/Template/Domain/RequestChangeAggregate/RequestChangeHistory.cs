@@ -1,7 +1,6 @@
 ﻿using Core.Cqrs.Domain;
 using Core.Cqrs.Domain.Domain;
 using MediatR;
-using Template.Domain.RequestChangeAggregate.Events;
 
 namespace Template.Domain.RequestChangeAggregate
 {
@@ -34,17 +33,13 @@ namespace Template.Domain.RequestChangeAggregate
             var localDateTime = DateTime.Now; // Hora local
             RegisterDate = localDateTime.ToUniversalTime();
 
-            AddNotifiedNutrionEvent();
+
         }
 
         public static RequestChangeHistory CreateChangeHistory(Guid appointmentGuid, Guid idClient, DateTime previusDate, DateTime newDate)
             => new(appointmentGuid, idClient, previusDate, newDate);
 
-        public void AddNotifiedNutrionEvent()
-        {
-            var categoryDefaultEvent = new UpdateDateDeliveryNotifiedNutrionEvent(IdClient, PreviusDate, NewDate);
-            _domainEventsAwait.Add(categoryDefaultEvent);
-        }
+
 
         public void ClearDomainEvents()
         {
