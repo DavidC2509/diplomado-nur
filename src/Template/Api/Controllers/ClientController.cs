@@ -40,7 +40,7 @@ namespace Template.Api.Controllers
         ///<summary>
         ///Cambio de fecha de bloqueo delivery
         ///</summary>
-        [HttpPost("addres/update-bloc-date")]
+        [HttpPost("addres/update-block-date")]
         public Task<ActionResult<bool>> UpdateBlockDateDelivery([FromBody] ModifiedRequestChangeDeliveryBlockCommand command) => SendRequest(command);
 
 
