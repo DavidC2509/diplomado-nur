@@ -33,3 +33,17 @@ Scenario: Guardar Direccion
     When se solicita "sin" credenciales que se procese a la url "/api/client/{RecordId}/address", usando el metodo "post"
     Then la respuesta debe tener el codigo de estado 200 
     And la respuesta debe contener un booleano
+
+Scenario: Agregar Enfermedad
+    Given la siguiente solicitud
+    """
+    {
+      "name": "string",
+      "descripcion": "string",
+      "type": "string"
+    }   
+    """
+    Given la siguiente entidad "client" registrada
+    When se solicita "sin" credenciales que se procese a la url "/api/client/{RecordId}/address", usando el metodo "post"
+    Then la respuesta debe tener el codigo de estado 200 
+    And la respuesta debe contener un booleano
