@@ -1,6 +1,7 @@
 ﻿using Azure.Messaging.EventHubs;
 using Azure.Messaging.EventHubs.Producer;
 using Microsoft.Extensions.Options;
+using System.Diagnostics;
 using System.Text;
 using Template.Domain.Interfaz.EventBus;
 
@@ -19,23 +20,36 @@ namespace Template.Services.ServciesBus
         {
             try
             {
-                EventHubProducerClient client = new EventHubProducerClient(
-              _connectionString,
-             eventHubName);
-
+                var client = new EventHubProducerClient(_connectionString, eventHubName);
                 using var batch = await client.CreateBatchAsync();
 
-                if (!batch.TryAdd(new EventData(Encoding.UTF8.GetBytes(message))))
+                var eventData = new EventData(Encoding.UTF8.GetBytes(message));
+
+                // 🔁 Si hay una actividad activa, agregamos traceparent
+                if (Activity.Current is { } activity)
+                {
+                    eventData.Properties["traceparent"] = activity.Id;
+                    Console.WriteLine($"[Tracing] traceparent agregado al mensaje: {activity.Id}");
+
+                    foreach (var (key, value) in activity.Baggage)
+                    {
+                        eventData.Properties[$"baggage-{key}"] = value;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("[Tracing] No hay Activity.Current, no se agregó traceparent");
+                }
+
+                if (!batch.TryAdd(eventData))
                     throw new InvalidOperationException("El mensaje es demasiado grande para el batch.");
 
                 await client.SendAsync(batch);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"[Error] {ex.Message}");
             }
-
         }
     }
-
 }
