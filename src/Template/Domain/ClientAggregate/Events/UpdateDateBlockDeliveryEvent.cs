@@ -9,11 +9,11 @@ namespace Template.Domain.ClientAggregate.Events
         public DateTime NewDate { get; set; }
         public Guid AddressGuid { get; set; }
 
-        public UpdateDateBlockDeliveryEvent(Guid clientGuid, DateTime previusDate, DateTime newDate, Guid addresGuid)
+        public UpdateDateBlockDeliveryEvent(Guid clientGuid, DateTime fromDate, DateTime toDate, Guid addresGuid)
         {
             ClientGuid = clientGuid;
-            PreviusDate = previusDate;
-            NewDate = newDate;
+            PreviusDate = fromDate;
+            NewDate = toDate;
             AddressGuid = addresGuid;
         }
     }

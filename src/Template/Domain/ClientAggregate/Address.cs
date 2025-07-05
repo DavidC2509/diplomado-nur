@@ -56,7 +56,7 @@ namespace Template.Domain.ClientAggregate
 
         public void UpdateDateBlockDelivery(DateTime toDate, DateTime fromDate, Guid clientGuid)
         {
-            var eventAddres = new UpdateDateBlockDeliveryEvent(clientGuid, toDate, fromDate, Id);
+            var eventAddres = new UpdateDateBlockDeliveryEvent(clientGuid, fromDate, toDate, Id);
             DateDeliveryDate = toDate;
             DateToDeliveryIgnore = toDate;
             DateFromDeliveryIgnore = fromDate;
