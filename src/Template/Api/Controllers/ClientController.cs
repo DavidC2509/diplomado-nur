@@ -16,7 +16,7 @@ namespace Template.Api.Controllers
         ///<summary>
         ///Listado Clientes
         ///</summary>
-        [HttpGet("list2")]
+        [HttpGet("list")]
         public Task<ActionResult<IEnumerable<ClientModel>>> ListClient() => SendRequest(new ListClientQuery());
 
         ///<summary>
@@ -28,19 +28,23 @@ namespace Template.Api.Controllers
         ///<summary>
         ///Agregar Direccion
         ///</summary>
-        [HttpPost("address")]
-        public Task<ActionResult<bool>> AddAddresClient([FromBody] AddAddresByClientCommand command) => SendRequest(command);
+        [HttpPost("{id}/address")]
+        public Task<ActionResult<bool>> AddAddresClient(Guid id, [FromBody] AddAddresByClientCommand command)
+        {
+            command.SetClientGuid(id);
+            return SendRequest(command);
+        }
 
         ///<summary>
         ///Agregar Enfermedad
         ///</summary>
-        [HttpPost("medical-illneses")]
+        [HttpPost("{id}/medical-illneses")]
         public Task<ActionResult<bool>> AddMedicalIllneses([FromBody] AddMedicalIllnessesCommand command) => SendRequest(command);
 
         ///<summary>
         ///Cambio de fecha de bloqueo delivery
         ///</summary>
-        [HttpPost("addres/update-block-date")]
+        [HttpPost("{id}/addres/update-block-date")]
         public Task<ActionResult<bool>> UpdateBlockDateDelivery([FromBody] ModifiedRequestChangeDeliveryBlockCommand command) => SendRequest(command);
 
 

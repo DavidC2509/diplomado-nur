@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Reqnroll;
 using Template.Command.Database;
+using Template.Domain.ClientAggregate;
 
 namespace Api.Test.Integration.Steps
 {
+    [Binding]
     class ConvertStepDefinitions
     {
         private readonly ScenarioContext _context;
@@ -14,18 +16,21 @@ namespace Api.Test.Integration.Steps
         }
 
         [Given(@"la siguiente entidad ""(.*)"" registrada")]
-        public void GivenLaSiguienteEntidadRegistrada(string entityName, string data)
+        public void GivenLaSiguienteEntidadRegistrada(string entityName)
         {
+
+            var dbName = _context.Get<string>("InMemoryDbName");
+
             var options = new DbContextOptionsBuilder<DataBaseContext>()
-                .UseInMemoryDatabase(_context.Get<string>("DB_Key"))
+                .UseInMemoryDatabase(dbName)
                 .Options;
 
             using (var context = new DataBaseContext(options, null))
             {
                 switch (entityName)
                 {
-                    case "Client":
-                        StoreClient(context, data);
+                    case "client":
+                        StoreClient(context);
                         break;
 
                 }
@@ -33,14 +38,14 @@ namespace Api.Test.Integration.Steps
         }
 
 
-        private void StoreClient(DataBaseContext db, string data)
+        private void StoreClient(DataBaseContext db)
         {
-            //var parse = Newtonsoft.Json.JsonConvert.DeserializeObject<Client>(data);
+            var parse = Client.CreateClient("Test", "75621921", "papapote3@gmail.com", Guid.NewGuid());
 
-            //db.Cl.Add(parse);
-            //db.SaveChanges();
+            db.Add(parse);
+            db.SaveChanges();
 
-            _context.Set(true, "RecordId");
+            _context.Set(parse.Id.ToString(), "RecordId");
         }
 
 
