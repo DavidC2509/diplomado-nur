@@ -17,11 +17,14 @@ namespace Api.Test.Integration.Steps
         private readonly ScenarioContext _context;
         private readonly WebApplicationFactory<Program> _factory;
 
+
+
         public CommonStepDefinitions(
            ScenarioContext scenarioContext,
            WebApplicationFactory<Program> webApplicationFactory)
         {
             _context = scenarioContext;
+            var dbName = _context.Get<string>("InMemoryDbName");
             _factory = webApplicationFactory.WithWebHostBuilder(builder =>
             {
                 // Remover la configuración de PostgreSQL si existe
@@ -44,7 +47,7 @@ namespace Api.Test.Integration.Steps
 
                     services.AddDbContext<DataBaseContext>(options =>
                     {
-                        options.UseInMemoryDatabase("TesDatabase");
+                        options.UseInMemoryDatabase(dbName);
                     });
                 });
             });
@@ -149,7 +152,7 @@ namespace Api.Test.Integration.Steps
             }
             else
             {
-                Assert.Equals("[]", _context.Get<string>("ResponseBody"));
+                Assert.That(_context.Get<string>("ResponseBody"), Is.EqualTo("[]"));
             }
         }
 

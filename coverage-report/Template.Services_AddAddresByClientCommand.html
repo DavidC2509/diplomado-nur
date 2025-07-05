@@ -41,7 +41,7 @@
 <table>
 <tr>
 <th>Covered lines:</th>
-<td class="limit-width right" title="6">6</td>
+<td class="limit-width right" title="14">14</td>
 </tr>
 <tr>
 <th>Uncovered lines:</th>
@@ -49,15 +49,15 @@
 </tr>
 <tr>
 <th>Coverable lines:</th>
-<td class="limit-width right" title="6">6</td>
-</tr>
-<tr>
-<th>Total lines:</th>
 <td class="limit-width right" title="14">14</td>
 </tr>
 <tr>
+<th>Total lines:</th>
+<td class="limit-width right" title="26">26</td>
+</tr>
+<tr>
 <th>Line coverage:</th>
-<td class="limit-width right" title="6 of 6">100%</td>
+<td class="limit-width right" title="14 of 14">100%</td>
 </tr>
 </table>
 </div>
@@ -113,6 +113,8 @@
 <tr><td title="get_Latituded()"><a href="#file0_line10" class="navigatetohash">get_Latituded()</a></td><td>100%</td><td>1</td><td>1</td><td>100%</td></tr>
 <tr><td title="get_Longitud()"><a href="#file0_line11" class="navigatetohash">get_Longitud()</a></td><td>100%</td><td>1</td><td>1</td><td>100%</td></tr>
 <tr><td title="get_DateDelivery()"><a href="#file0_line12" class="navigatetohash">get_DateDelivery()</a></td><td>100%</td><td>1</td><td>1</td><td>100%</td></tr>
+<tr><td title=".ctor()"><a href="#file0_line14" class="navigatetohash">.ctor()</a></td><td>100%</td><td>1</td><td>1</td><td>100%</td></tr>
+<tr><td title="SetClientGuid(System.Guid)"><a href="#file0_line22" class="navigatetohash">SetClientGuid(...)</a></td><td>100%</td><td>1</td><td>1</td><td>100%</td></tr>
 </tbody>
 </table>
 </div>
@@ -128,18 +130,30 @@
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line4"></a><code>4</code></td><td></td><td class="lightgray"><code>{</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line5"></a><code>5</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;class&nbsp;AddAddresByClientCommand&nbsp;:&nbsp;IRequest&lt;bool&gt;</code></td></tr>
 <tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line6"></a><code>6</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
-<tr class="coverableline" title="Covered (12 visits)" data-coverage="{'AllTestMethods': {'VC': '12', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">12</td><td class="rightmargin right"><a id="file0_line7"></a><code>7</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;required&nbsp;Guid&nbsp;IdClient&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
-<tr class="coverableline" title="Covered (12 visits)" data-coverage="{'AllTestMethods': {'VC': '12', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">12</td><td class="rightmargin right"><a id="file0_line8"></a><code>8</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;required&nbsp;string&nbsp;Street&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
-<tr class="coverableline" title="Covered (12 visits)" data-coverage="{'AllTestMethods': {'VC': '12', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">12</td><td class="rightmargin right"><a id="file0_line9"></a><code>9</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;required&nbsp;string&nbsp;City&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
-<tr class="coverableline" title="Covered (12 visits)" data-coverage="{'AllTestMethods': {'VC': '12', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">12</td><td class="rightmargin right"><a id="file0_line10"></a><code>10</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;required&nbsp;decimal&nbsp;Latituded&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
-<tr class="coverableline" title="Covered (12 visits)" data-coverage="{'AllTestMethods': {'VC': '12', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">12</td><td class="rightmargin right"><a id="file0_line11"></a><code>11</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;required&nbsp;decimal&nbsp;Longitud&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
-<tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line12"></a><code>12</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;DateTime&nbsp;DateDelivery&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
-<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line13"></a><code>13</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
-<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line14"></a><code>14</code></td><td></td><td class="lightgray"><code>}</code></td></tr>
+<tr class="coverableline" title="Covered (11 visits)" data-coverage="{'AllTestMethods': {'VC': '11', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">11</td><td class="rightmargin right"><a id="file0_line7"></a><code>7</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;Guid&nbsp;IdClient&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
+<tr class="coverableline" title="Covered (13 visits)" data-coverage="{'AllTestMethods': {'VC': '13', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">13</td><td class="rightmargin right"><a id="file0_line8"></a><code>8</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;string&nbsp;Street&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
+<tr class="coverableline" title="Covered (13 visits)" data-coverage="{'AllTestMethods': {'VC': '13', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">13</td><td class="rightmargin right"><a id="file0_line9"></a><code>9</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;string&nbsp;City&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
+<tr class="coverableline" title="Covered (11 visits)" data-coverage="{'AllTestMethods': {'VC': '11', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">11</td><td class="rightmargin right"><a id="file0_line10"></a><code>10</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;decimal&nbsp;Latituded&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
+<tr class="coverableline" title="Covered (11 visits)" data-coverage="{'AllTestMethods': {'VC': '11', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">11</td><td class="rightmargin right"><a id="file0_line11"></a><code>11</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;decimal&nbsp;Longitud&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
+<tr class="coverableline" title="Covered (4 visits)" data-coverage="{'AllTestMethods': {'VC': '4', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">4</td><td class="rightmargin right"><a id="file0_line12"></a><code>12</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;DateTime&nbsp;DateDelivery&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line13"></a><code>13</code></td><td></td><td class="lightgray"><code></code></td></tr>
+<tr class="coverableline" title="Covered (2 visits)" data-coverage="{'AllTestMethods': {'VC': '2', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">2</td><td class="rightmargin right"><a id="file0_line14"></a><code>14</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;AddAddresByClientCommand()</code></td></tr>
+<tr class="coverableline" title="Covered (2 visits)" data-coverage="{'AllTestMethods': {'VC': '2', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">2</td><td class="rightmargin right"><a id="file0_line15"></a><code>15</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
+<tr class="coverableline" title="Covered (2 visits)" data-coverage="{'AllTestMethods': {'VC': '2', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">2</td><td class="rightmargin right"><a id="file0_line16"></a><code>16</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Street&nbsp;=&nbsp;string.Empty;</code></td></tr>
+<tr class="coverableline" title="Covered (2 visits)" data-coverage="{'AllTestMethods': {'VC': '2', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">2</td><td class="rightmargin right"><a id="file0_line17"></a><code>17</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;City&nbsp;=&nbsp;string.Empty;</code></td></tr>
+<tr class="coverableline" title="Covered (2 visits)" data-coverage="{'AllTestMethods': {'VC': '2', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">2</td><td class="rightmargin right"><a id="file0_line18"></a><code>18</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line19"></a><code>19</code></td><td></td><td class="lightgray"><code></code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line20"></a><code>20</code></td><td></td><td class="lightgray"><code></code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line21"></a><code>21</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;SetClientGuid(Guid&nbsp;accountId)</code></td></tr>
+<tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line22"></a><code>22</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
+<tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line23"></a><code>23</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IdClient&nbsp;=&nbsp;accountId;</code></td></tr>
+<tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line24"></a><code>24</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line25"></a><code>25</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line26"></a><code>26</code></td><td></td><td class="lightgray"><code>}</code></td></tr>
 </tbody>
 </table>
 </div>
-<div class="footer">Generated by: ReportGenerator 5.4.8.0<br />2/7/2025 - 22:04:01<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div>
+<div class="footer">Generated by: ReportGenerator 5.4.8.0<br />5/7/2025 - 04:46:22<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div>
 <div class="containerright">
 <div class="containerrightfixed">
 <h1>Methods/Properties</h1>
@@ -149,6 +163,8 @@
 <a href="#file0_line10" class="navigatetohash percentagebar percentagebar100" title="Line coverage: 100% - get_Latituded()"><i class="icon-wrench"></i>get_Latituded()</a><br />
 <a href="#file0_line11" class="navigatetohash percentagebar percentagebar100" title="Line coverage: 100% - get_Longitud()"><i class="icon-wrench"></i>get_Longitud()</a><br />
 <a href="#file0_line12" class="navigatetohash percentagebar percentagebar100" title="Line coverage: 100% - get_DateDelivery()"><i class="icon-wrench"></i>get_DateDelivery()</a><br />
+<a href="#file0_line14" class="navigatetohash percentagebar percentagebar100" title="Line coverage: 100% - .ctor()"><i class="icon-cube"></i>.ctor()</a><br />
+<a href="#file0_line22" class="navigatetohash percentagebar percentagebar100" title="Line coverage: 100% - SetClientGuid(System.Guid)"><i class="icon-cube"></i>SetClientGuid(System.Guid)</a><br />
 <br/></div>
 </div></div>
 <script type="text/javascript">

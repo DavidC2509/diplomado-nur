@@ -115,6 +115,78 @@ this.ScenarioInitialize(scenarioInfo);
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Obtener cliente por id")]
+        public async System.Threading.Tasks.Task ObtenerClientePorId()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Obtener cliente por id", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 13
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 14
+    await testRunner.GivenAsync("la siguiente solicitud", "", ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 17
+    await testRunner.GivenAsync("la siguiente entidad \"client\" registrada", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 18
+    await testRunner.WhenAsync("se solicita \"sin\" credenciales que se procese a la url \"/api/client/{RecordId}\", " +
+                        "usando el metodo \"get\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 19
+    await testRunner.ThenAsync("la respuesta debe tener el codigo de estado 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Guardar Direccion")]
+        public async System.Threading.Tasks.Task GuardarDireccion()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Guardar Direccion", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 21
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 22
+    await testRunner.GivenAsync("la siguiente solicitud", "{\r\n  \"street\": \"Prueba\",\r\n  \"city\": \"Test\",\r\n  \"latituded\": 1,\r\n  \"longitud\": 2,\r" +
+                        "\n  \"dateDelivery\": \"2025-07-05T08:12:25.194Z\"\r\n}   ", ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 32
+    await testRunner.GivenAsync("la siguiente entidad \"client\" registrada", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 33
+    await testRunner.WhenAsync("se solicita \"sin\" credenciales que se procese a la url \"/api/client/{RecordId}/ad" +
+                        "dress\", usando el metodo \"post\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 34
+    await testRunner.ThenAsync("la respuesta debe tener el codigo de estado 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 35
+    await testRunner.AndAsync("la respuesta debe contener un booleano", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore

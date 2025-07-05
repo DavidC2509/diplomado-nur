@@ -1,90 +1,90 @@
-# name: SonarQube
-# on:
-#   push:
-#     branches:
-#       - main
-#       - dev
-#   pull_request:
-#     types: [opened, synchronize, reopened]
+name: SonarQube
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    types: [opened, synchronize, reopened]
 
-# jobs:
-#   build:
-#     name: Build and analyze
-#     runs-on: windows-latest
+jobs:
+  build:
+    name: Build and analyze
+    runs-on: windows-latest
 
-#     steps:
-#       - name: Set up JDK 17
-#         uses: actions/setup-java@v4
-#         with:
-#           java-version: 17
-#           distribution: 'zulu'
+    steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu'
 
-#       - uses: actions/checkout@v4
-#         with:
-#           fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-#       - name: Cache SonarQube Cloud packages
-#         uses: actions/cache@v4
-#         with:
-#           path: ~\sonar\cache
-#           key: ${{ runner.os }}-sonar
-#           restore-keys: ${{ runner.os }}-sonar
+      - name: Cache SonarQube Cloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~\sonar\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
-#       - name: Cache SonarQube Cloud scanner
-#         id: cache-sonar-scanner
-#         uses: actions/cache@v4
-#         with:
-#           path: .\.sonar\scanner
-#           key: ${{ runner.os }}-sonar-scanner
-#           restore-keys: ${{ runner.os }}-sonar-scanner
+      - name: Cache SonarQube Cloud scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v4
+        with:
+          path: .\.sonar\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
 
-#       - name: Install SonarQube Cloud scanner
-#         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-#         shell: powershell
-#         run: |
-#           New-Item -Path .\.sonar\scanner -ItemType Directory
-#           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+      - name: Install SonarQube Cloud scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path .\.sonar\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
-#       - name: Install required workloads
-#         run: dotnet workload restore
+      - name: Install required workloads
+        run: dotnet workload restore
 
-#       - name: Install ReportGenerator
-#         run: dotnet tool install --global dotnet-reportgenerator-globaltool
+      - name: Install ReportGenerator
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
 
-#       - name: Run tests with coverage
-#         run: |
-#           dotnet test `
-#             --collect:"XPlat Code Coverage" `
-#             --results-directory ./TestResults
+      - name: Run tests with coverage
+        run: |
+          dotnet test `
+            --collect:"XPlat Code Coverage" `
+            --results-directory ./TestResults
 
-#       - name: Convert coverage to cobertura
-#         run: |
-#           reportgenerator `
-#             -reports:"TestResults/**/coverage.cobertura.xml" `
-#             -targetdir:"CoverageReport" `
-#             -reporttypes:"Cobertura"
-#         env:
-#           PATH: ${{ env.PATH }};C:\Users\runneradmin\.dotnet\tools
+      - name: Convert coverage to cobertura
+        run: |
+          reportgenerator `
+            -reports:"TestResults/**/coverage.cobertura.xml" `
+            -targetdir:"CoverageReport" `
+            -reporttypes:"Cobertura"
+        env:
+          PATH: ${{ env.PATH }};C:\Users\runneradmin\.dotnet\tools
 
-#       - name: Debug - list coverage files
-#         shell: pwsh
-#         run: Get-ChildItem -Recurse -Path CoverageReport | Format-List FullName
+      - name: Debug - list coverage files
+        shell: pwsh
+        run: Get-ChildItem -Recurse -Path CoverageReport | Format-List FullName
 
-#       - name: Begin SonarScanner
-#         env:
-#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#         run: |
-#           .\.sonar\scanner\dotnet-sonarscanner begin `
-#             /k:"DavidC2509_diplomado-nur" `
-#             /o:"davidc2509" `
-#             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
-#             /d:sonar.host.url="https://sonarcloud.io" `
-#             /d:sonar.cs.cobertura.reportsPaths="CoverageReport/Cobertura.xml"
+      - name: Begin SonarScanner
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          .\.sonar\scanner\dotnet-sonarscanner begin `
+            /k:"DavidC2509_diplomado-nur" `
+            /o:"davidc2509" `
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
+            /d:sonar.host.url="https://sonarcloud.io" `
+            /d:sonar.cs.cobertura.reportsPaths="CoverageReport/Cobertura.xml"
             
-#       - name: Build
-#         run: dotnet build
+      - name: Build
+        run: dotnet build
 
-#       - name: End SonarScanner
-#         env:
-#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#         run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+      - name: End SonarScanner
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
