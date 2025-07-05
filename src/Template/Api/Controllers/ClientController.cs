@@ -16,7 +16,7 @@ namespace Template.Api.Controllers
         ///<summary>
         ///Listado Clientes
         ///</summary>
-        [HttpGet("list")]
+        [HttpGet("list2")]
         public Task<ActionResult<IEnumerable<ClientModel>>> ListClient() => SendRequest(new ListClientQuery());
 
         ///<summary>
