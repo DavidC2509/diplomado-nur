@@ -43,6 +43,8 @@ namespace Template.Services.Interface
             };
             var json = JsonSerializer.SerializeToElement(data, options);
 
+            Console.WriteLine($"TraceID al guardar outbox: {Activity.Current?.Id}");
+
             var traceId = Activity.Current?.Id ?? Guid.NewGuid().ToString();
 
             var outbox = OutboxMessage.StoreOutbox(eventType, json, traceId);
