@@ -9,7 +9,10 @@ namespace Template.Services.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<Client, ClientModel>();
+
+            CreateMap<Client, ClientModel>()
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.Value));
+
             CreateMap<Address, AddresModel>();
             CreateMap<MedicalIllnesses, MedicaIllnessesModel>();
             CreateMap<Consultation, MedicalConsultModel>();

@@ -8,9 +8,7 @@ namespace Template.Domain.ClientAggregate
     {
         public string Name { get; private set; }
         public string? Phone { get; private set; }
-
         public EmailValueObject Email { get; private set; }
-
         private readonly List<Address> _addresses;
         public IEnumerable<Address> Addresses => _addresses.AsReadOnly();
 

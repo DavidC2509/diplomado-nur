@@ -15,7 +15,9 @@ builder.Services.AddApplicationInsightsTelemetry();
 builder.AddServiceDefaults();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Services.ConfigureResponseCaching();
-// Add services to the container.
+// Add services        builder.Services.AddApplicationInsightsTelemetry();
+builder.Services.AddApplicationInsightsTelemetry();
+
 builder.Services.AddControllers();
 builder.AddNpgsqlDbContext<DataBaseContext>("nutri_solid_database");
 
@@ -41,7 +43,6 @@ builder.Services.AddCors(options =>
 builder.ConfigureSwagger();
 
 // The following line enables Application Insights telemetry collection.
-builder.Services.AddApplicationInsightsTelemetry();
 
 builder.Services.AddSingleton<ITelemetryInitializer>(new RoleNameTelemetryInitializer("Coordinacion-BackEnd-Catering"));
 
